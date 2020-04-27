@@ -1,5 +1,5 @@
 /* IMPORTS */
-import * as React from 'react';
+import React from 'react';
 
 // Components
 import styled from 'styled-components';

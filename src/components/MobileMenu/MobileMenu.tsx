@@ -1,5 +1,5 @@
 /* IMPORTS */
-import * as React from 'react';
+import React, { useState, Fragment } from 'react';
 
 import styled from 'styled-components';
 
@@ -18,11 +18,24 @@ const StyledMobileMenu = styled.span`
     }
 `;
 
+const SideMenu = styled.span``;
+
 /* COMPONENT */
 function MobileMenu({ children }: { children: string }) {
+  const [isMobileMenuClicked, setIsMobileMenuClicked] = useState(false);
+
   /* RENDER */
   return (
-    <StyledMobileMenu>{children}</StyledMobileMenu>
+    <>
+      <StyledMobileMenu
+        data-testid="MobileMenu"
+        onClick={() => setIsMobileMenuClicked(!isMobileMenuClicked)}
+      >
+        {children}
+      </StyledMobileMenu>
+      {isMobileMenuClicked ? <SideMenu data-testid="SideMenu" /> : null}
+    </>
+
   );
 }
 
