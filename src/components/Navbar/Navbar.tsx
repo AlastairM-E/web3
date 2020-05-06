@@ -42,33 +42,42 @@ const Title = styled.h2`
 // - on the medium of screens and when the page ahs a max-width of 670px,
 //   the a links will disappear.
 const PageLink = styled.a`
-    padding: 10px;
-    margin: 10px;
-    font-size:1.5em;
     text-decoration: none;
     color: black;
-
+    font-size:1.5em;
     :hover {
         border-bottom: 2.5px solid black;
     }
+`;
 
-    @media screen and (max-width: 670px) {
+const DesktopPageLinks = styled.span`
+  * {
+    padding: 10px;
+    margin: 10px;
+  }
+  @media screen and (max-width: 670px) {
         display:none;
-    }
+  }
 `;
 
 
 /* COMPONENT */
 function Navbar({ title }: { title: string }) {
-  /* RENDER */
-  return (
-    <StyledNavbar data-testid="Navbar">
-      <Title>{title}</Title>
+  const ListOfNavLinks = () => (
+    <>
       <PageLink href="/home">Home</PageLink>
       <PageLink href="/about">About</PageLink>
       <PageLink href="/contact">Contact</PageLink>
       <PageLink href="/portfolio">Portfolio</PageLink>
-      <MobileMenu>|||</MobileMenu>
+    </>
+  );
+
+  /* RENDER */
+  return (
+    <StyledNavbar data-testid="Navbar">
+      <Title>{title}</Title>
+      <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks>
+      <MobileMenu SideMenuNav={<ListOfNavLinks />}>|||</MobileMenu>
     </StyledNavbar>
   );
 }
