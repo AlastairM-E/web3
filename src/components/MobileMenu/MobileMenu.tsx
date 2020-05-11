@@ -25,7 +25,6 @@ const StyledSandwichMenu = styled.span`
     }
 `;
 
-/* STYLES */
 const StyledSideMenu = styled.span`
   display:none;
   @media screen and (max-width: 670px) {
@@ -37,27 +36,20 @@ const StyledSideMenuNav = styled.nav``;
 
 /* COMPONENT */
 function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
-  // Create isSandwichMenuClicked & setIsSandwichMenuClicked useState (initial state will be false).
-  // Create a toggleSideMenu function is order so that the Side Menu can be toggled off and on.
-  // Create a SideMenu Component that will return a SideMenu with a data-testid of "SideMenu".
-  // Inside that component is a CloseSideMenuButton, with an event listener which will trigger
-  // the toggleSideMenu Function.
-  // The function will render a wrapper Fragment component,in whcih
-  // the StyledSandwichMenu component which renders the children prop.
-  // The StyledSandwichMenu will have an onclick event handler which when clicked will toggle
-  // the SideMenu.
-  // This occurs becuase the SideMenu component is conditionally rendered
-  // based on whether the  isSandwichMenuClicked state is true (by default is is false).
-  // This means that if the Menu Button is click it will open the sideMenu tab and
-  // (currently) the SideMenu and the MobileMenu button will then be able to close
-  // the side menu.
   /* HOOKS */
+  // Create isSandwichMenuClicked & setIsSandwichMenuClicked useState (initial state will be false).
   const [isSandwichMenuClicked, setIsSandwichMenuClicked] = useState(false);
 
   /* EVENT LISTENERS */
+  // Create a toggleSideMenu function in order for the Side Menu to be toggled off and on.
   const toggleSideMenu = () => setIsSandwichMenuClicked(!isSandwichMenuClicked);
 
   /* RENDER */
+  // Create a SandwichMenu Component that will return a SandwichMenu with a data-testid of
+  // "SandwichMenu".
+  // If the Sandwich Menu is clicked, reveal the SideMenuNav
+  // The SIdeMenu has a button which can close the SideMenu itself.
+  // It also has a SideMenuNav which will render the prop SIdeMenuNav
   return (
     <>
       <StyledSandwichMenu data-testid="SandwichMenu" onClick={toggleSideMenu}>|||</StyledSandwichMenu>
