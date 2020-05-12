@@ -3,7 +3,7 @@ import React from 'react';
 
 // Components
 import styled from 'styled-components';
-import { Navbar } from './components/index';
+import { Navbar, TestComponent } from './components/index';
 
 // Global styles from App.scss and styled from styledComponents
 
@@ -27,6 +27,7 @@ function App() {
   return (
     <AppBackground className="App" data-testid="App">
       <Navbar title="Alastair M-E" />
+      <TestComponent />
     </AppBackground>
   );
 }

@@ -1,7 +1,6 @@
 /* IMPORTS */
 import React, { useState, Fragment } from 'react';
 import styled from 'styled-components';
-import { SideMenu } from '../index';
 
 
 /* INTERFACES */
