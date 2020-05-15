@@ -1,7 +1,6 @@
 /* IMPORTS */
 import React, { useState, Fragment } from 'react';
-import styled from 'styled-components';
-import { SideMenu } from '../index';
+import styled, { keyframes } from 'styled-components';
 
 
 /* INTERFACES */
@@ -15,10 +14,12 @@ const StyledSandwichMenu = styled.span`
     padding: 10px 10px 20px 10px;
     margin: 10px 25px;
     font-size:2.5em;
+    cursor: pointer;
     letter-spacing:-2px;
     -webkit-transform: rotate(-90deg);
+    border: 2.5px solid lightgreen;
     @media screen and (max-width: 670px) {
-        display:inline-block;
+        display:${(props: { isSandwichMenuClicked: boolean}) => (props.isSandwichMenuClicked ? 'none' : 'inline-block')};
         :hover {
             border: 2.5px solid black;
         }
@@ -28,11 +29,43 @@ const StyledSandwichMenu = styled.span`
 const StyledSideMenu = styled.span`
   display:none;
   @media screen and (max-width: 670px) {
-        display:inline-block;
+    display:inline-block;
+    background: lightgreen;
+    width: 200px;
+    height: 100px;
+    border-left: 5px solid black;
+    padding: 0px 0px 602px 0px;
+    margin-top: 600px;
   }
 `;
-const StyledCloseMenuButton = styled.button``;
-const StyledSideMenuNav = styled.nav``;
+const StyledSideMenuNav = styled.ul`
+  * {
+    display:inline-block;
+    margin: 10px;
+  }
+`;
+
+const StyledMenuButtonDivider = styled.span`
+  display: flex;
+  justify-content : flex-end;
+  border-bottom: 5px solid black;
+  padding: 10px;
+  height: 81.5px;
+  background: yellow;
+`;
+
+const StyledCloseMenuButton = styled.span`
+  height: 40px;
+  margin: 10px;
+  font-size:2.5em;
+  padding: 0px 10px 5px;
+  border: 2.5px solid yellow;
+  :hover {
+    border: 2.5px solid black;
+  }
+  cursor: pointer;
+`;
+
 
 /* COMPONENT */
 function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
@@ -52,11 +85,19 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
   // It also has a SideMenuNav which will render the prop SIdeMenuNav
   return (
     <>
-      <StyledSandwichMenu data-testid="SandwichMenu" onClick={toggleSideMenu}>|||</StyledSandwichMenu>
+      <StyledSandwichMenu
+        data-testid="SandwichMenu"
+        onClick={toggleSideMenu}
+        isSandwichMenuClicked={isSandwichMenuClicked}
+      >
+        |||
+      </StyledSandwichMenu>
       {isSandwichMenuClicked
         ? (
           <StyledSideMenu data-testid="SideMenu">
-            <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
+            <StyledMenuButtonDivider>
+              <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
+            </StyledMenuButtonDivider>
             <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
           </StyledSideMenu>
         ) : null}
