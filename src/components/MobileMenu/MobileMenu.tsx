@@ -1,5 +1,6 @@
 /* IMPORTS */
 import React, { useState, Fragment } from 'react';
+import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 
 
@@ -7,6 +8,27 @@ import styled, { keyframes } from 'styled-components';
 interface mobileMenuProperties {
   SideMenuNav: any;
 }
+
+/* ANIMATION */
+const slide = keyframes`
+  from {
+    position:absolute;
+    top:0%;
+    left:0%;
+    width: 8.333333333333%;
+    height: 16.66666666666%;
+    background: yellow;
+  } 
+
+  to {
+    position:absolute;
+    top:100%;
+    left:100%;
+    width: 8.333333333333%;
+    height: 8.333333333333%;
+    background: orange;
+  }
+`;
 
 /* STYLES */
 const StyledSandwichMenu = styled.span`
@@ -30,12 +52,11 @@ const StyledSideMenu = styled.span`
   display:none;
   @media screen and (max-width: 670px) {
     display:inline-block;
-    background: lightgreen;
-    width: 200px;
-    height: 100px;
+    background: white;
+    grid-row: 3/13;
+    grid-column: 9/13;
     border-left: 5px solid black;
-    padding: 0px 0px 602px 0px;
-    margin-top: 600px;
+    animation: ${slide} 10s ease-in;
   }
 `;
 const StyledSideMenuNav = styled.ul`
@@ -46,12 +67,17 @@ const StyledSideMenuNav = styled.ul`
 `;
 
 const StyledMenuButtonDivider = styled.span`
-  display: flex;
-  justify-content : flex-end;
-  border-bottom: 5px solid black;
-  padding: 10px;
-  height: 81.5px;
-  background: yellow;
+  display: none;
+  @media screen and (max-width: 670px) {
+    display: flex;
+    justify-content: flex-end;
+    border-left: 5px solid black;
+    border-bottom: 5px solid black;
+    grid-column: 9/13;
+    grid-row: 1/3;
+    background: white;
+    animation: ${slide} 10s ease-in;
+  }
 `;
 
 const StyledCloseMenuButton = styled.span`
@@ -59,10 +85,11 @@ const StyledCloseMenuButton = styled.span`
   margin: 10px;
   font-size:2.5em;
   padding: 0px 10px 5px;
-  border: 2.5px solid yellow;
+  border: 2.5px solid black;
   :hover {
-    border: 2.5px solid black;
+    border: 2.5px solid lightgreen;
   }
+  color:black;
   cursor: pointer;
 `;
 
@@ -76,6 +103,21 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
   /* EVENT LISTENERS */
   // Create a toggleSideMenu function in order for the Side Menu to be toggled off and on.
   const toggleSideMenu = () => setIsSandwichMenuClicked(!isSandwichMenuClicked);
+
+  function SideMenu() {
+    return isSandwichMenuClicked
+      ? ReactDOM.createPortal(
+        <>
+          <StyledMenuButtonDivider>
+            <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
+          </StyledMenuButtonDivider>
+          <StyledSideMenu data-testid="SideMenu">
+            <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
+          </StyledSideMenu>
+        </>,
+        document.getElementById('root'),
+      ) : null;
+  }
 
   /* RENDER */
   // Create a SandwichMenu Component that will return a SandwichMenu with a data-testid of
@@ -92,15 +134,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
       >
         |||
       </StyledSandwichMenu>
-      {isSandwichMenuClicked
-        ? (
-          <StyledSideMenu data-testid="SideMenu">
-            <StyledMenuButtonDivider>
-              <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
-            </StyledMenuButtonDivider>
-            <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
-          </StyledSideMenu>
-        ) : null}
+      <SideMenu />
     </>
   );
 }

@@ -6,6 +6,9 @@ import MobileMenu from './MobileMenu';
 /* TESTS */
 test('Check that the MobileMenu makes a SideMenu only', () => {
   // Get the container element and check only the MobileMenu component is inside, which is done by
+  // Root id has been set to the contianer to enable the React.createPortal whcih targets
+  // the root div to work and send the jsx element to the div root and thsu it's destined container,
+  // rather than returning a big fat error.
   // check the length of the container is one.
   // Check the SideMenu does not exists is by using the document.querySelectorAll(), it should
   // return undefined
@@ -14,6 +17,7 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
   // Click on the MobileMenu Component again this should remove the SideMenu Component and therefore
   // when the SideMenu is queried for again, should return nothing.
   const { container, getByTestId } = render(<MobileMenu />);
+  container.setAttribute('id', 'root');
   expect(container.children.length).toBe(1);
 
   const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
@@ -31,7 +35,10 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
 
 
 test('The MobileMenu should return a SideMenu which has a button which will close the SideMenu', () => {
-  // Render(<MobileMenu>|||</MobileMenu>) = { getByTestId };
+  // Render(<MobileMenu>|||</MobileMenu>) = { container, getByTestId };
+  // Root id has been set to the contianer to enable the React.createPortal whcih targets
+  // the root div to work and send the jsx element to the div root and thsu it's destined container,
+  // rather than returning a big fat error.
   // Have a variable to contain elements a queried for with a data-testid equal to SideMenu &
   // and the CloseMenuButton.
   // Check whether these values (which are functions) resolve true.
@@ -41,7 +48,8 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   // Then the CloseMenuButton should be clicked again.
   // This should mean that the ClsoeSideMenutButton and the SideMenu should both not exist.
   // Therefore, they should both return undefined for the same reason.
-  const { getByTestId } = render(<MobileMenu />);
+  const { container, getByTestId } = render(<MobileMenu />);
+  container.setAttribute('id', 'root');
 
   const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
   const doesCloseMenuButtonExist = () => document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
@@ -65,7 +73,10 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
 test('The MobileMenu should return a SideMenu which contains menu items whcih the MobileMenu was passed down and only available on the actived SideMenu', () => {
   // Have a variable storing a list of page links.
   // These should be passed in to the rendered MobileMenu Component as the prop of SideMenuNav.
-  // Extract out the getByTestId method via destructing.
+  // Extract out the container and getByTestId method via destructing.
+  // Root id has been set to the contianer to enable the React.createPortal whcih targets
+  // the root div to work and send the jsx element to the div root and thsu it's destined container,
+  // rather than returning a big fat error.
   // Check that the SideMenuNav cannot be queried for by test id as it does not exist and therefore
   // returns undefined.
   // Then click the MobileMenu button.
@@ -84,7 +95,10 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
       <a href="portfolio">portfolio</a>
     </>
   );
-  const { getByTestId } = render(<MobileMenu SideMenuNav={ListOfPageLinks}>|||</MobileMenu>);
+  const { container, getByTestId } = render(
+    <MobileMenu SideMenuNav={ListOfPageLinks}>|||</MobileMenu>,
+  );
+  container.setAttribute('id', 'root');
   const doesSideMenuNavExist = () => document.querySelectorAll('[data-testid="SideMenuNav"]')[0];
 
 

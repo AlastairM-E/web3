@@ -45,9 +45,11 @@ const PageLink = styled.a`
     text-decoration: none;
     color: black;
     font-size:1.5em;
-    border-bottom: 2.5px solid lightgreen;
-    :hover {
-        border-bottom: 2.5px solid black;
+    @media screen and (max-width: 670px) {
+      border-bottom: 2.5px solid black;
+      :hover {
+        border-bottom: 2.5px solid lightgreen;
+      }
     }
 `;
 
