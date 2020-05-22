@@ -14,18 +14,18 @@ const slide = keyframes`
   from {
     position:absolute;
     top:0%;
-    left:0%;
-    width: 8.333333333333%;
-    height: 16.66666666666%;
+    right:-10%;
+    height: 16.666666666%;
+    width: 33.33333333333%;
     background: yellow;
   } 
 
   to {
     position:absolute;
-    top:100%;
-    left:100%;
-    width: 8.333333333333%;
-    height: 8.333333333333%;
+    top:0%;
+    right:0%;
+    height: 16.666666666%;
+    width: 33.33333333333%;
     background: orange;
   }
 `;
@@ -56,7 +56,6 @@ const StyledSideMenu = styled.span`
     grid-row: 3/13;
     grid-column: 9/13;
     border-left: 5px solid black;
-    animation: ${slide} 10s ease-in;
   }
 `;
 const StyledSideMenuNav = styled.ul`
