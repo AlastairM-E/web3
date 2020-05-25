@@ -3,7 +3,7 @@ import React, { useState, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import {
-  slideSideMenu, toggleSandwichMenuAnimation, slideMenuButtonDividerIn, slideMenuButtonDividerOut, smbdaI, smbdaX,
+  slideSideMenu, toggleSandwichMenuAnimation, slideMenuButtonDividerIn, smbdaX,
 } from '../../animation';
 
 /* INTERFACES */
