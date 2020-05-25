@@ -4,6 +4,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { MobileMenu } from '../index';
 
+/* INTERFACE */
+interface Title {
+  title: string;
+}
+
 // styled from styled-components
 
 /* Navbar styles: */
@@ -45,7 +50,6 @@ const PageLink = styled.a`
     text-decoration: none;
     color: black;
     font-size:1.5em;
-
     border-bottom: 2.5px solid lightgreen;
       :hover {
         border-bottom: 2.5px solid black;
@@ -71,7 +75,7 @@ const DesktopPageLinks = styled.span`
 
 
 /* COMPONENT */
-function Navbar({ title }: { title: string }) {
+function Navbar({ title }: Title) {
   const ListOfNavLinks = () => (
     <>
       <PageLink href="/home">Home</PageLink>
@@ -86,7 +90,7 @@ function Navbar({ title }: { title: string }) {
     <StyledNavbar data-testid="Navbar">
       <Title>{title}</Title>
       <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks>
-      <MobileMenu SideMenuNav={<ListOfNavLinks />}>|||</MobileMenu>
+      <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );
 }

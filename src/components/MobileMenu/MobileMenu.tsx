@@ -1,34 +1,15 @@
 /* IMPORTS */
 import React, { useState, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import styled, { keyframes } from 'styled-components';
-
+import styled, { css } from 'styled-components';
+import {
+  slideSideMenu, toggleSandwichMenuAnimation, slideMenuButtonDividerIn, slideMenuButtonDividerOut, smbdaI, smbdaX,
+} from '../../animation';
 
 /* INTERFACES */
 interface mobileMenuProperties {
   SideMenuNav: any;
 }
-
-/* ANIMATION */
-const slide = keyframes`
-  from {
-    position:absolute;
-    top:0%;
-    right:-10%;
-    height: 16.666666666%;
-    width: 33.33333333333%;
-    background: yellow;
-  } 
-
-  to {
-    position:absolute;
-    top:0%;
-    right:0%;
-    height: 16.666666666%;
-    width: 33.33333333333%;
-    background: orange;
-  }
-`;
 
 /* STYLES */
 const StyledSandwichMenu = styled.span`
@@ -41,7 +22,7 @@ const StyledSandwichMenu = styled.span`
     -webkit-transform: rotate(-90deg);
     border: 2.5px solid lightgreen;
     @media screen and (max-width: 670px) {
-        display:${(props: { isSandwichMenuClicked: boolean}) => (props.isSandwichMenuClicked ? 'none' : 'inline-block')};
+        display: ${toggleSandwichMenuAnimation};
         :hover {
             border: 2.5px solid black;
         }
@@ -56,12 +37,13 @@ const StyledSideMenu = styled.span`
     grid-row: 3/13;
     grid-column: 9/13;
     border-left: 5px solid black;
+    animation:${slideSideMenu} 0.5s ease-in;
   }
 `;
 const StyledSideMenuNav = styled.ul`
   * {
     display:inline-block;
-    margin: 10px;
+    margin: 10px 100px 10px 10px;
   }
 `;
 
@@ -75,7 +57,8 @@ const StyledMenuButtonDivider = styled.span`
     grid-column: 9/13;
     grid-row: 1/3;
     background: white;
-    animation: ${slide} 10s ease-in;
+    /* animation: ${slideMenuButtonDividerIn} 0.5s ease-in; */
+    ${smbdaX}
   }
 `;
 
