@@ -3,7 +3,7 @@ import React, { useState, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import {
-  slideSideMenu, toggleSandwichMenuAnimation, slideMenuButtonDividerIn, slideMenuButtonDividerOut, smbdaI, smbdaX,
+  toggleDisplaySandwichMenu, toggleDividerAnimation, toggleSideMenuAnimation,
 } from '../../animation';
 
 /* INTERFACES */
@@ -22,7 +22,7 @@ const StyledSandwichMenu = styled.span`
     -webkit-transform: rotate(-90deg);
     border: 2.5px solid lightgreen;
     @media screen and (max-width: 670px) {
-        display: ${toggleSandwichMenuAnimation};
+        display: ${toggleDisplaySandwichMenu};
         :hover {
             border: 2.5px solid black;
         }
@@ -37,7 +37,7 @@ const StyledSideMenu = styled.span`
     grid-row: 3/13;
     grid-column: 9/13;
     border-left: 5px solid black;
-    animation:${slideSideMenu} 0.5s ease-in;
+   ${toggleSideMenuAnimation};
   }
 `;
 const StyledSideMenuNav = styled.ul`
@@ -57,8 +57,8 @@ const StyledMenuButtonDivider = styled.span`
     grid-column: 9/13;
     grid-row: 1/3;
     background: white;
-    /* animation: ${slideMenuButtonDividerIn} 0.5s ease-in; */
-    ${smbdaX}
+    z-index:1000;
+    ${toggleDividerAnimation}
   }
 `;
 
@@ -73,6 +73,7 @@ const StyledCloseMenuButton = styled.span`
   }
   color:black;
   cursor: pointer;
+  ${toggleSideMenuAnimation}
 `;
 
 
@@ -86,14 +87,14 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
   // Create a toggleSideMenu function in order for the Side Menu to be toggled off and on.
   const toggleSideMenu = () => setIsSandwichMenuClicked(!isSandwichMenuClicked);
 
-  function SideMenu() {
-    return isSandwichMenuClicked
+  function SideMenu({ isSandwichMenuClickedProps } : { isSandwichMenuClickedProps: boolean }) {
+    return true
       ? ReactDOM.createPortal(
         <>
-          <StyledMenuButtonDivider>
+          <StyledMenuButtonDivider isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
             <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
           </StyledMenuButtonDivider>
-          <StyledSideMenu data-testid="SideMenu">
+          <StyledSideMenu data-testid="SideMenu" isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
             <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
           </StyledSideMenu>
         </>,
@@ -116,7 +117,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
       >
         |||
       </StyledSandwichMenu>
-      <SideMenu />
+      <SideMenu isSandwichMenuClickedProps={isSandwichMenuClicked} />
     </>
   );
 }

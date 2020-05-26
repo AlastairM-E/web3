@@ -37,7 +37,7 @@ const slideMenuButtonDividerOut = keyframes`
     }
 `;
 
-const slideSideMenu = keyframes`
+const slideSideMenuIn = keyframes`
     from {
       position:absolute;
       top:16.666666666%;
@@ -55,22 +55,60 @@ const slideSideMenu = keyframes`
     }
 `;
 
-const toggleSandwichMenuAnimation = (props: { isSandwichMenuClicked: boolean}) => {
+const slideSideMenuOut = keyframes`
+    from {
+      position:absolute;
+      top:16.666666666%;
+      right:0%;
+      height: 83.33333333333%;
+      width: 33.33333333333%;
+    } 
+  
+    to {
+      position:absolute;
+      top:16.666666666%;
+      right:-33.33333333333%;
+      height: 83.33333333333%;
+      width: 33.33333333333%;
+    }
+`;
+
+/* SHORTING FUNCTION */
+const smbdaI = css`animation: ${slideMenuButtonDividerIn} 0.5s ease-in;`;
+const smbdaX = css`animation: ${slideMenuButtonDividerOut} 10s ease-in;`;
+const ssmaI = css`animation: ${slideSideMenuIn} 0.5s ease-in;`;
+const ssmaX = css`animation: ${slideSideMenuOut} 10s ease-in;`;
+
+const toggleDisplaySandwichMenu = (props: { isSandwichMenuClicked: boolean}) => {
   if (props.isSandwichMenuClicked) {
     return 'none';
   }
   return 'inline-block';
 };
 
-/* SHORTING FUNCTION */
-const smbdaI = css`animation: ${slideMenuButtonDividerOut} 0.5s ease-out;`;
-const smbdaX = css`animation: ${slideMenuButtonDividerOut} 0.5s ease-out;`;
+const toggleDividerAnimation = (props: { isSandwichMenuClickedProps: boolean}) => {
+  if (props.isSandwichMenuClickedProps) {
+    return smbdaX;
+  }
+  return smbdaI;
+};
+
+const toggleSideMenuAnimation = (props: { isSandwichMenuClickedProps: boolean}) => {
+  if (props.isSandwichMenuClickedProps) {
+    return ssmaX;
+  }
+  return ssmaI;
+};
+
 
 export {
   slideMenuButtonDividerIn,
   slideMenuButtonDividerOut,
-  slideSideMenu,
   smbdaI,
   smbdaX,
-  toggleSandwichMenuAnimation,
+  ssmaI,
+  ssmaX,
+  toggleDividerAnimation,
+  toggleSideMenuAnimation,
+  toggleDisplaySandwichMenu,
 };
