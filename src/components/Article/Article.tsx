@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 /* INTERFACES */
 interface Articles {
-    articles: {
-      title: string;
-      content: string;
-    };
+  articles : {
+    title: string;
+    content: string;
+  }[]
 }
 
 /* STYLES */
@@ -31,8 +31,8 @@ function Article({ articles }: Articles) {
 
   const { title, content } = articles[index];
   return (
-    <StyledArticleContainer data-testid="ArticleContainer">
-      <StyledArticle data-testid="Article">
+    <StyledArticleContainer id="ArticleContainer">
+      <StyledArticle id="Article">
         <h1 id="ArticleTitle">{title}</h1>
         <span id="ArticleContent">{content}</span>
       </StyledArticle>
@@ -41,7 +41,7 @@ function Article({ articles }: Articles) {
           {'<--'}
         </StyledShiftArticleButton>
       ) : null}
-
+      <span id="ArticleCounter">{`${index + 1}/${articles.length}`}</span>
       { index !== articles.length - 1 ? (
         <StyledShiftArticleButton id="ShiftArticleForwardsButton" onClick={() => setIndex(index + 1)}>
           {'-->'}

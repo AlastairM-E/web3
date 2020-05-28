@@ -10,8 +10,8 @@ test('expect the article to exist', () => {
   // get by test id the virtual article container
   // check that it exists and that it is the only top level element in the parent div container.
   const testArticles = ['a', 'b', 'c'];
-  const { container, getByTestId } = render(<Article articles={testArticles} />);
-  const virtualArticleContainer = getByTestId('ArticleContainer');
+  const { container } = render(<Article articles={testArticles} />);
+  const virtualArticleContainer = document.getElementById('ArticleContainer');
 
   expect(virtualArticleContainer).toBeTruthy();
   expect(container.children.length).toStrictEqual(1);
@@ -52,10 +52,10 @@ test('article buttons shift the articles forward and backwards', () => {
   // Get by test id the Article element and the shift article forwards and backwards button.
   // Check that the startingArticles matchs teh virtual Articles text Cotnent.
   // at the last article the forwards button should be Null.
-  const { getByTestId } = render(<Article articles={articles} />);
+  render(<Article articles={articles} />);
 
   const [startingArticle, secondArticle, finalArticle] = articles;
-  const virtualArticle = getByTestId('Article');
+  const virtualArticle = document.getElementById('Article');
   const virtualShiftArticleForwardsButton = () => document.getElementById('ShiftArticleForwardsButton');
   const virtualShiftArticleBackwardsButton = () => document.getElementById('ShiftArticleBackwardsButton');
 
@@ -90,4 +90,22 @@ test('article buttons shift the articles forward and backwards', () => {
 
   expect(virtualArticle.children).toStrictEqual(renderObjectToBe(startingArticle));
   expect(virtualShiftArticleBackwardsButton()).toBeNull();
+});
+
+test('should return a number counting the articles ', () => {
+  render(<Article articles={articles} />);
+
+  const virtualArticleCounter = document.getElementById('ArticleCounter');
+  const virtualShiftArticleForwardsButton = () => document.getElementById('ShiftArticleForwardsButton');
+  const virtualShiftArticleBackwardsButton = () => document.getElementById('ShiftArticleBackwardsButton');
+
+  expect(virtualArticleCounter.textContent).toStrictEqual('1/3');
+
+  fireEvent.click(virtualShiftArticleForwardsButton());
+
+  expect(virtualArticleCounter.textContent).toStrictEqual('2/3');
+
+  fireEvent.click(virtualShiftArticleBackwardsButton());
+
+  expect(virtualArticleCounter.textContent).toStrictEqual('1/3');
 });
