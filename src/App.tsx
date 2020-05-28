@@ -1,6 +1,8 @@
 /* IMPORTS */
 import React, { Fragment } from 'react';
 
+import { articles } from './mockArticles';
+
 // Components
 import { Navbar, Article } from './components/index';
 
@@ -12,7 +14,7 @@ function App() {
   return (
     <>
       <Navbar title="Alastair M-E" />
-      <Article articles={['a', 'b', 'c']} />
+      <Article articles={articles} />
     </>
   );
 }

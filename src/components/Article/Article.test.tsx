@@ -2,6 +2,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Article from './Article';
+import { articles } from '../../mockArticles';
 
 /* TESTS */
 test('expect the article to exist', () => {
@@ -21,47 +22,72 @@ test('display content of first item in the articles section', () => {
   // get by test id the article.
   // get the first element whcih should be the first article on display
   // check that that vritualArticle text content is equal to the first article.
-  const testArticles = ['a', 'b', 'c'];
-  const { getByTestId } = render(<Article articles={testArticles} />);
+  render(<Article articles={articles} />);
 
-  const virtualArticle = getByTestId('Article');
-  const [articleToDisplay] = testArticles;
+  const virtualArticleTitle = document.getElementById('ArticleTitle');
+  const virtualArticleContent = document.getElementById('ArticleContent');
+  const [{ title, content }] = articles;
 
-  expect(virtualArticle.textContent).toStrictEqual(articleToDisplay);
+  expect(virtualArticleTitle.textContent).toStrictEqual(title);
+  expect(virtualArticleContent.textContent).toStrictEqual(content);
 });
 
-test('articles has buttons in the article', () => {
+test('articles has buttons in the article are correctly rendered', () => {
   // render out the article section with the tet data filed with an array of fake articles.
   // get by test id both the firwards and backwards article shift button.
-  // check that both articles exist and so are truthy.
-  const testArticles = ['a', 'b', 'c'];
-  const { getByTestId } = render(<Article articles={testArticles} />);
+  // check that the forwards button should be truthy as you can therefore move forward.
+  // Since there is not article to back to the starting button should beNull
+  render(<Article articles={articles} />);
 
-  const virtualShiftArticleForwardsButton = getByTestId('ShiftArticleForwardsButton');
-  const virtualShiftArticleBackwardsButton = getByTestId('ShiftArticleBackwardsButton');
+  const virtualShiftArticleForwardsButton = document.getElementById('ShiftArticleForwardsButton');
+  const virtualShiftArticleBackwardsButton = document.getElementById('ShiftArticleBackwardsButton');
 
   expect(virtualShiftArticleForwardsButton).toBeTruthy();
-  expect(virtualShiftArticleBackwardsButton).toBeTruthy();
+  expect(virtualShiftArticleBackwardsButton).toBeNull();
 });
 
 test('article buttons shift the articles forward and backwards', () => {
   // Render out the article section with the tet data filed with an array of fake articles.
   // Get the starting Article and the next Article after than on from testArticles array.
   // Get by test id the Article element and the shift article forwards and backwards button.
-  // Check that the startingArticles matchs teh virtual Articles text Cotnent
-  const testArticles = ['a', 'b', 'c'];
-  const { getByTestId } = render(<Article articles={testArticles} />);
+  // Check that the startingArticles matchs teh virtual Articles text Cotnent.
+  // at the last article the forwards button should be Null.
+  const { getByTestId } = render(<Article articles={articles} />);
 
-  const [startingArticle, nextArticle] = testArticles;
+  const [startingArticle, secondArticle, finalArticle] = articles;
   const virtualArticle = getByTestId('Article');
-  const virtualShiftArticleForwardsButton = getByTestId('ShiftArticleForwardsButton');
-  const virtualShiftArticleBackwardsButton = getByTestId('ShiftArticleBackwardsButton');
+  const virtualShiftArticleForwardsButton = () => document.getElementById('ShiftArticleForwardsButton');
+  const virtualShiftArticleBackwardsButton = () => document.getElementById('ShiftArticleBackwardsButton');
 
-  expect(virtualArticle.textContent).toStrictEqual(startingArticle);
+  function renderObjectToBe({ title, content }: { title: string, content: string}) {
+    const { container } = render(
+      <>
+        <h1 id="ArticleTitle">{title}</h1>
+        <span id="ArticleContent">{content}</span>
+      </>,
+    );
+    return container.children;
+  }
 
-  fireEvent.click(virtualShiftArticleForwardsButton);
-  expect(virtualArticle.textContent).toStrictEqual(nextArticle);
+  expect(virtualShiftArticleBackwardsButton()).toBeNull();
+  expect(virtualArticle.children).toStrictEqual(renderObjectToBe(startingArticle));
 
-  fireEvent.click(virtualShiftArticleBackwardsButton);
-  expect(virtualArticle.textContent).toStrictEqual(startingArticle);
+  fireEvent.click(virtualShiftArticleForwardsButton());
+
+  expect(virtualArticle.children).toStrictEqual(renderObjectToBe(secondArticle));
+  expect(virtualShiftArticleBackwardsButton()).toBeTruthy();
+
+  fireEvent.click(virtualShiftArticleForwardsButton());
+
+  expect(virtualArticle.children).toStrictEqual(renderObjectToBe(finalArticle));
+
+  fireEvent.click(virtualShiftArticleBackwardsButton());
+
+  expect(virtualArticle.children).toStrictEqual(renderObjectToBe(secondArticle));
+  expect(virtualShiftArticleForwardsButton()).toBeTruthy();
+
+  fireEvent.click(virtualShiftArticleBackwardsButton());
+
+  expect(virtualArticle.children).toStrictEqual(renderObjectToBe(startingArticle));
+  expect(virtualShiftArticleBackwardsButton()).toBeNull();
 });

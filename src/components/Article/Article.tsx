@@ -5,7 +5,10 @@ import styled from 'styled-components';
 
 /* INTERFACES */
 interface Articles {
-    articles: string[];
+    articles: {
+      title: string;
+      content: string;
+    };
 }
 
 /* STYLES */
@@ -25,16 +28,26 @@ const StyledShiftArticleButton = styled.button``;
 function Article({ articles }: Articles) {
   /* HOOKS */
   const [index, setIndex] = useState(0);
-  /* RENDER */
+
+  const { title, content } = articles[index];
   return (
     <StyledArticleContainer data-testid="ArticleContainer">
-      <StyledArticle data-testid="Article">{articles[index]}</StyledArticle>
-      <StyledShiftArticleButton data-testid="ShiftArticleBackwardsButton" onClick={() => setIndex(index - 1)}>
-        {'<--'}
-      </StyledShiftArticleButton>
-      <StyledShiftArticleButton data-testid="ShiftArticleForwardsButton" onClick={() => setIndex(index + 1)}>
-        {'-->'}
-      </StyledShiftArticleButton>
+      <StyledArticle data-testid="Article">
+        <h1 id="ArticleTitle">{title}</h1>
+        <span id="ArticleContent">{content}</span>
+      </StyledArticle>
+      {index !== 0 ? (
+        <StyledShiftArticleButton id="ShiftArticleBackwardsButton" onClick={() => setIndex(index - 1)}>
+          {'<--'}
+        </StyledShiftArticleButton>
+      ) : null}
+
+      { index !== articles.length - 1 ? (
+        <StyledShiftArticleButton id="ShiftArticleForwardsButton" onClick={() => setIndex(index + 1)}>
+          {'-->'}
+        </StyledShiftArticleButton>
+      ) : null}
+
     </StyledArticleContainer>
   );
 }
