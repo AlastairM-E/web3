@@ -1,6 +1,8 @@
 /* IMPORTS */
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
+
+import { Context } from '../../state-management/ContextProvider';
 
 /* ANIMATION */
 const changeBackgroundColour = keyframes`
@@ -23,7 +25,8 @@ const StyledAd = styled.span`
 `;
 
 function Ad({ css }: { css : string }) {
-  return <StyledAd css={css} />;
+  const { webMonetizationState } = useContext(Context);
+  return webMonetizationState.state === 'started' ? null : <StyledAd css={css} />;
 }
 
 export default Ad;

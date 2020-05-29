@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
+
 /* INTERFACES */
 interface Articles {
   articles : {
@@ -28,6 +29,21 @@ const StyledShiftArticleButton = styled.button``;
 function Article({ articles }: Articles) {
   /* HOOKS */
   const [index, setIndex] = useState(0);
+  function ShiftArticleForwardsButton() {
+    return index !== articles.length - 1 ? (
+      <StyledShiftArticleButton id="ShiftArticleForwardsButton" onClick={() => setIndex(index + 1)}>
+        {'-->'}
+      </StyledShiftArticleButton>
+    ) : null;
+  }
+
+  function ShiftArticleBackwardsButton() {
+    return index !== 0 ? (
+      <StyledShiftArticleButton id="ShiftArticleBackwardsButton" onClick={() => setIndex(index - 1)}>
+        {'<--'}
+      </StyledShiftArticleButton>
+    ) : null;
+  }
 
   const { title, content } = articles[index];
   return (
@@ -36,18 +52,9 @@ function Article({ articles }: Articles) {
         <h1 id="ArticleTitle">{title}</h1>
         <span id="ArticleContent">{content}</span>
       </StyledArticle>
-      {index !== 0 ? (
-        <StyledShiftArticleButton id="ShiftArticleBackwardsButton" onClick={() => setIndex(index - 1)}>
-          {'<--'}
-        </StyledShiftArticleButton>
-      ) : null}
+      <ShiftArticleBackwardsButton />
       <span id="ArticleCounter">{`${index + 1}/${articles.length}`}</span>
-      { index !== articles.length - 1 ? (
-        <StyledShiftArticleButton id="ShiftArticleForwardsButton" onClick={() => setIndex(index + 1)}>
-          {'-->'}
-        </StyledShiftArticleButton>
-      ) : null}
-
+      <ShiftArticleForwardsButton />
     </StyledArticleContainer>
   );
 }

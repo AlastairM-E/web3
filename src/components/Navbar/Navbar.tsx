@@ -1,8 +1,9 @@
 /* IMPORTS */
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import styled from 'styled-components';
 import { MobileMenu } from '../index';
+import { Context } from '../../state-management/ContextProvider';
 
 /* INTERFACE */
 interface Title {
@@ -76,12 +77,16 @@ const DesktopPageLinks = styled.span`
 
 /* COMPONENT */
 function Navbar({ title }: Title) {
+  const { dispatchToggleMonetization } = useContext(Context);
   const ListOfNavLinks = () => (
     <>
       <PageLink href="/home">Home</PageLink>
       <PageLink href="/about">About</PageLink>
       <PageLink href="/contact">Contact</PageLink>
       <PageLink href="/portfolio">Portfolio</PageLink>
+      <button type="button" onClick={() => dispatchToggleMonetization({ action: 'TOGGLE' })}>
+        Toggle web monetization
+      </button>
     </>
   );
 
