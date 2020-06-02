@@ -4,5 +4,5 @@ import App from './App';
 
 test('should App be loadable', () => {
   const { container } = render(<App />);
-  expect(container.children.length).toStrictEqual(4);
+  expect(container.children.length).toStrictEqual(5);
 });

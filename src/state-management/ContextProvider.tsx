@@ -10,7 +10,10 @@ function ContextProvider({ children }: { children: any }) {
     { state: null, event: null },
   );
 
-  const [toggleWebMonetization, dispatchToggleMonetization] = useReducer(toggleMonetizationReducer, true);
+  const [toggleWebMonetization, dispatchToggleMonetization] = useReducer(
+    toggleMonetizationReducer,
+    true,
+  );
 
   return (
     <Context.Provider value={{

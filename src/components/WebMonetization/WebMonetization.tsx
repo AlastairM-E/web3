@@ -66,6 +66,7 @@ function WebMonetization() {
     <Helmet>
       { toggleWebMonetization ? (
         <meta
+          id="WebMonetization"
           name="monetization"
           content="$ilp.uphold.com/grARjWmwZdDj"
         />

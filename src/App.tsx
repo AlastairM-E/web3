@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-curly-brace-presence */
 /* IMPORTS */
 import React from 'react';
-import { articles } from './mockArticles';
 
 // Components
+import { articles } from './mockArticles';
 import { ContextProvider } from './state-management/ContextProvider';
 import {
-  Navbar, Article, WebMonetization, Ad,
+  Navbar, Article, WebMonetization, Ad, ShareMonetizationTimer,
 } from './components/index';
 
 /* COMPONENT */
@@ -18,17 +18,13 @@ function App() {
   // - Returns a Navbar with the title of Alastair M-E
   return (
     <ContextProvider>
+
       <WebMonetization />
       <Navbar title="Alastair M-E" />
-      <Ad css={`
-        grid-column: 1/3;
-        grid-row:3/13;
-      `}
-      >
-        AD
-      </Ad>
+      <Ad gridColumn={'1/3'} gridRow={'3/13'}>AD1</Ad>
       <Article articles={articles} />
-      <Ad css="">AD</Ad>
+      <Ad gridColumn={'11/13'} gridRow={'3/13'}>AD2</Ad>
+      <ShareMonetizationTimer />
     </ContextProvider>
   );
 }
