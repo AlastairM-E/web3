@@ -66,14 +66,9 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     console.log('start of interval', { showAd, additionalTimeCookieState });
     if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0) && showAd === true) {
       setShowAd(false);
-      console.log('inside 1st condition', 0, { showAd, additionalTimeCookieState });
     }
 
-    if (
-      additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)
-      // && (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined)
-    ) {
-      console.log('inside 2nd condition', 1, { showAd, additionalTimeCookieState });
+    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
       dispatchNewAdditionalTimeState({ action: 'MINUS_A_SECOND_FROM_ADDITIONAL_TIME' });
     }
 
