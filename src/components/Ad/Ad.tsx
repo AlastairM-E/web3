@@ -49,43 +49,39 @@ function useInterval(callback: any, delay: number) {
 }
 
 function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: string; children: any }) {
-  const { webMonetizationState } = useContext(Context);
+  const { webMonetizationState, additionalTimeCookieState, dispatchNewAdditionalTimeState } = useContext(Context);
   const [showAd, setShowAd] = useState(true);
-  const [timeTillAdsAreShown, setTimeTillAdsAreShown] = useState(0);
 
-  // useEffect(() => {
-  //   if ((webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined) && !document.cookie) {
-  //
-  //   }
-
-  //   if (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') {
-  //     setShowAd(false);
-  //   }
-  // }, [webMonetizationState]);
-
-  useInterval(() => {
+  useEffect(() => {
     if (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined) {
       setShowAd(true);
-      if (document.cookie && timeTillAdsAreShown === 0) {
-        setShowAd(false);
-        const additionalTime = Number(document.cookie.split('additionalTime=')[1]);
-        setTimeTillAdsAreShown(additionalTime);
-      }
-
-      if (timeTillAdsAreShown > 0) {
-        setShowAd(false);
-        setTimeTillAdsAreShown(timeTillAdsAreShown - 1000);
-        console.log({ timeTillAdsAreShown });
-      }
-
-      if (timeTillAdsAreShown === 0) {
-        // setShowAd(true);
-        document.cookie = 'additionalTime=0; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-        console.log({
-          cookie: document.cookie, showAd, timeTillAdsAreShown, isTrue: timeTillAdsAreShown === 0,
-        });
-      }
     }
+
+    if (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') {
+      setShowAd(false);
+    }
+  }, [webMonetizationState]);
+
+  useInterval(() => {
+    console.log('start of interval', { showAd, additionalTimeCookieState });
+    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0) && showAd === true) {
+      setShowAd(false);
+      console.log('inside 1st condition', 0, { showAd, additionalTimeCookieState });
+    }
+
+    if (
+      additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)
+      // && (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined)
+    ) {
+      console.log('inside 2nd condition', 1, { showAd, additionalTimeCookieState });
+      dispatchNewAdditionalTimeState({ action: 'MINUS_A_SECOND_FROM_ADDITIONAL_TIME' });
+    }
+
+    if (additionalTimeCookieState <= 0 && additionalTimeCookieState !== null) {
+      console.log('inside 3rd condition', 2, { showAd, additionalTimeCookieState });
+      setShowAd(true);
+    }
+    console.log('end of interval', { showAd, additionalTimeCookieState });
   }, 1000);
 
   return showAd

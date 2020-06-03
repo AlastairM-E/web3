@@ -1,4 +1,4 @@
-import { webMonetizationReducer, toggleMonetizationReducer } from './Reducer';
+import { webMonetizationReducer, toggleMonetizationReducer, additionalTimeCookieReducer } from './Reducer';
 
 test('webMonetizationReducer', () => {
   const testReducerState = { state: 'initialStartingTest ' };
@@ -39,4 +39,34 @@ test('toggleMonetizationReducer', () => {
   );
 
   expect(reverseToggleFromToggleMonetizationReducer).toStrictEqual(true);
+});
+
+test('addtionalTimeCookieReducer functions properly', () => {
+  const testState: void = null;
+  const defaultAddtionalTimeCookieReducer = additionalTimeCookieReducer(
+    testState,
+    { action: '' },
+  );
+
+  expect(defaultAddtionalTimeCookieReducer).toStrictEqual(testState);
+
+  const additionalTime3000 = 3000;
+  const addAdditionalTime3000FromCookieAction = {
+    action: 'ADD_COOKIE_ADDITIONAL_TIME',
+    cookie: `additionalTime=${additionalTime3000}`,
+  };
+  const additionalTimeAddedCookieReducer = additionalTimeCookieReducer(
+    testState,
+    addAdditionalTime3000FromCookieAction,
+  );
+
+  expect(additionalTimeAddedCookieReducer).toStrictEqual(additionalTime3000);
+
+  const minusSecondFromAdditionalTimeAction = { action: 'MINUS_A_SECOND_FROM_ADDITIONAL_TIME' };
+  const newAdditionalTimeFromCookieReducer = additionalTimeCookieReducer(
+    additionalTimeAddedCookieReducer,
+    minusSecondFromAdditionalTimeAction,
+  );
+
+  expect(newAdditionalTimeFromCookieReducer).toStrictEqual(additionalTime3000 - 1000);
 });

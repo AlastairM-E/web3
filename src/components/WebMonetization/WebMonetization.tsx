@@ -8,7 +8,7 @@ import { Context } from '../../state-management/ContextProvider';
 /* COMPONENT */
 function WebMonetization() {
   /* HOOKS */
-  const { webMonetizationState, dispatchWebMonetizationState, toggleWebMonetization } = useContext(Context);
+  const { dispatchWebMonetizationState, toggleWebMonetization } = useContext(Context);
 
   function monetizationEventHandler(event) {
     dispatchWebMonetizationState({
