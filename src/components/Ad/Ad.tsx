@@ -53,8 +53,6 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     webMonetizationState,
     additionalTimeCookieState,
     dispatchNewAdditionalTimeState,
-    toggleWebMonetization,
-    dispatchToggleMonetization,
   } = useContext(Context);
   const [showAd, setShowAd] = useState(true);
 
@@ -65,7 +63,6 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     // console.log('inside 3rd condition', 2, { showAd, additionalTimeCookieState });
     // console.log('end of interval', { showAd, additionalTimeCookieState });
     if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
-      dispatchToggleMonetization({ action: 'DISABLE' });
       setShowAd(false);
     }
 
@@ -74,14 +71,10 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     }
 
     if (additionalTimeCookieState <= 0 && additionalTimeCookieState !== null) {
-      dispatchToggleMonetization({ action: 'ENABLE' });
       setShowAd(true);
     }
 
-    if (
-      (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined)
-      && toggleWebMonetization === true
-    ) {
+    if ((webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined)) {
       setShowAd(true);
     }
 
