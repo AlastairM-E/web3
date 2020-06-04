@@ -8,9 +8,13 @@ import styled from 'styled-components';
 import { Context } from '../../state-management/ContextProvider';
 
 const StyledShareMonetizationTimer = styled.div`
-    grid-row: 11/12;
-    grid-column: 6/7;
+    grid-row: 4/5;
+    grid-column: 11/13;
     color:black;
+    border: 2.5px solid black;
+    margin: 7.5px;
+    padding:5px 0px;
+    font-size: 0.8em;
 `;
 
 function useInterval(callback: any, delay: number) {

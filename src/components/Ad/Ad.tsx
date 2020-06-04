@@ -49,22 +49,23 @@ function useInterval(callback: any, delay: number) {
 }
 
 function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: string; children: any }) {
-  const { webMonetizationState, additionalTimeCookieState, dispatchNewAdditionalTimeState } = useContext(Context);
+  const {
+    webMonetizationState,
+    additionalTimeCookieState,
+    dispatchNewAdditionalTimeState,
+    toggleWebMonetization,
+    dispatchToggleMonetization,
+  } = useContext(Context);
   const [showAd, setShowAd] = useState(true);
 
-  useEffect(() => {
-    if (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined) {
-      setShowAd(true);
-    }
-
-    if (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') {
-      setShowAd(false);
-    }
-  }, [webMonetizationState]);
-
   useInterval(() => {
-    console.log('start of interval', { showAd, additionalTimeCookieState });
-    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0) && showAd === true) {
+    // console.log('start of interval', { showAd, additionalTimeCookieState });
+    // console.log('inside 1st condition', 0, { showAd, additionalTimeCookieState });
+    // console.log('inside 2nd condition', 1, { showAd, additionalTimeCookieState });
+    // console.log('inside 3rd condition', 2, { showAd, additionalTimeCookieState });
+    // console.log('end of interval', { showAd, additionalTimeCookieState });
+    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
+      dispatchToggleMonetization({ action: 'DISABLE' });
       setShowAd(false);
     }
 
@@ -73,10 +74,20 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     }
 
     if (additionalTimeCookieState <= 0 && additionalTimeCookieState !== null) {
-      console.log('inside 3rd condition', 2, { showAd, additionalTimeCookieState });
+      dispatchToggleMonetization({ action: 'ENABLE' });
       setShowAd(true);
     }
-    console.log('end of interval', { showAd, additionalTimeCookieState });
+
+    if (
+      (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined)
+      && toggleWebMonetization === true
+    ) {
+      setShowAd(true);
+    }
+
+    if (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') {
+      setShowAd(false);
+    }
   }, 1000);
 
   return showAd

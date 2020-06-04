@@ -13,6 +13,12 @@ function toggleMonetizationReducer(state: any, { action }: { action: string; }) 
     case 'TOGGLE':
       return !state;
 
+    case 'DISABLE':
+      return false;
+
+    case 'ENABLE':
+      return true;
+
     default:
       return state;
   }

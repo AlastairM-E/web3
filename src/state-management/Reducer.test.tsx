@@ -39,6 +39,36 @@ test('toggleMonetizationReducer', () => {
   );
 
   expect(reverseToggleFromToggleMonetizationReducer).toStrictEqual(true);
+
+  const disableAction = { action: 'DISABLE' };
+  const disabledWebMonetizationReducer = toggleMonetizationReducer(
+    true,
+    disableAction,
+  );
+
+  expect(disabledWebMonetizationReducer).toStrictEqual(false);
+
+  const anotherDisableActionToWebMonetizationReducer = toggleMonetizationReducer(
+    false,
+    disableAction,
+  );
+
+  expect(anotherDisableActionToWebMonetizationReducer).toStrictEqual(false);
+
+  const enableAction = { action: 'ENABLE' };
+  const anEnabledWebMonetizationReducer = toggleMonetizationReducer(
+    false,
+    enableAction,
+  );
+
+  expect(anEnabledWebMonetizationReducer).toStrictEqual(true);
+
+  const constantlyEnabledWebMonetizationReducer = toggleMonetizationReducer(
+    true,
+    enableAction,
+  );
+
+  expect(constantlyEnabledWebMonetizationReducer).toStrictEqual(true);
 });
 
 test('addtionalTimeCookieReducer functions properly', () => {
