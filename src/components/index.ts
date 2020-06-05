@@ -4,6 +4,7 @@ import Article from './Article/Article';
 import Ad from './Ad/Ad';
 import WebMonetization from './WebMonetization/WebMonetization';
 import ShareMonetizationTimer from './ShareMonetizationTimer/ShareMonetizationTimer';
+import DeleteCookieMessage from './DeleteCookieMessage/DeleteCookieMessage';
 
 export {
   Navbar,
@@ -12,4 +13,5 @@ export {
   Ad,
   WebMonetization,
   ShareMonetizationTimer,
+  DeleteCookieMessage,
 };

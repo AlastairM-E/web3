@@ -79,10 +79,6 @@ function ShareMonetizationTimer() {
       }, 1000);
     }
 
-    if ((webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') && timeOutIsDone) {
-      document.cookie = 'targetedAd=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    }
-
     if (timer > 5000 && (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')) {
       document.cookie = `additionalTime=${(timer - 5000)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
     }

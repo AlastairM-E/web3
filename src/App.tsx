@@ -6,7 +6,7 @@ import React from 'react';
 import { articles } from './mockArticles';
 import { ContextProvider } from './state-management/ContextProvider';
 import {
-  Navbar, Article, WebMonetization, Ad, ShareMonetizationTimer,
+  Navbar, Article, WebMonetization, Ad, ShareMonetizationTimer, DeleteCookieMessage,
 } from './components/index';
 
 /* COMPONENT */
@@ -25,6 +25,7 @@ function App() {
       <Article articles={articles} />
       <Ad gridColumn={'11/13'} gridRow={'3/13'}>AD2</Ad>
       <ShareMonetizationTimer />
+      <DeleteCookieMessage />
     </ContextProvider>
   );
 }
