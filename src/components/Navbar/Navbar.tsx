@@ -1,9 +1,8 @@
 /* IMPORTS */
-import React, { useContext } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
-import { MobileMenu } from '../index';
-import { Context } from '../../state-management/ContextProvider';
+// import { MobileMenu } from '../index';
 
 /* INTERFACE */
 interface Title {
@@ -77,22 +76,22 @@ const DesktopPageLinks = styled.span`
 
 /* COMPONENT */
 function Navbar({ title }: Title) {
-  const { dispatchToggleMonetization } = useContext(Context);
-  const ListOfNavLinks = () => (
-    <>
-      <PageLink href="/home">Home</PageLink>
-      <PageLink href="/about">About</PageLink>
-      <PageLink href="/contact">Contact</PageLink>
-      <PageLink href="/portfolio">Portfolio</PageLink>
-    </>
-  );
+  // const ListOfNavLinks = () => (
+  //   // <>
+  //   //   <PageLink href="/home">Home</PageLink>
+  //   //   <PageLink href="/about">About</PageLink>
+  //   //   <PageLink href="/contact">Contact</PageLink>
+  //   //   <PageLink href="/portfolio">Portfolio</PageLink>
+  //   // </>
+  //   <span />
+  // );
 
   /* RENDER */
   return (
     <StyledNavbar data-testid="Navbar">
       <Title>{title}</Title>
-      <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks>
-      <MobileMenu SideMenuNav={<ListOfNavLinks />} />
+      {/* <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks>
+      <MobileMenu SideMenuNav={<ListOfNavLinks />} /> */}
     </StyledNavbar>
   );
 }
