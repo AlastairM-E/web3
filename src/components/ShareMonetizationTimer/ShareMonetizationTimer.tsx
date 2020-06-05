@@ -84,6 +84,8 @@ function ShareMonetizationTimer() {
     }
   }, [timer, timeOutIsDone]);
 
+  console.log({ check: (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined) });
+
   /* RENDER */
   return timeOutIsDone ? (
     <StyledShareMonetizationTimer id="ShareMonetizationTimer">
@@ -93,7 +95,9 @@ function ShareMonetizationTimer() {
             return null;
           }
 
-          if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
+          if (
+            additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)
+          ) {
             return (
               <span>
                 <StyledTitle>

@@ -84,9 +84,6 @@ function Navbar({ title }: Title) {
       <PageLink href="/about">About</PageLink>
       <PageLink href="/contact">Contact</PageLink>
       <PageLink href="/portfolio">Portfolio</PageLink>
-      <button type="button" id="ToggleMonetizationButton" onClick={() => dispatchToggleMonetization({ action: 'TOGGLE' })}>
-        Toggle web monetization
-      </button>
     </>
   );
 

@@ -18,7 +18,6 @@ function App() {
   // - Returns a Navbar with the title of Alastair M-E
   return (
     <ContextProvider>
-
       <WebMonetization />
       <Navbar title="Alastair M-E" />
       <Ad gridColumn={'1/3'} gridRow={'3/13'}>AD1</Ad>

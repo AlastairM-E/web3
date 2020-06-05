@@ -77,7 +77,6 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
   }, []);
 
   useInterval(() => {
-    console.log({ cookie: document.cookie });
     // console.log('start of interval', { showAd, additionalTimeCookieState });
     // console.log('inside 1st condition', 0, { showAd, additionalTimeCookieState });
     // console.log('inside 2nd condition', 1, { showAd, additionalTimeCookieState });
@@ -91,7 +90,7 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
       setShowAd(false);
     }
 
-    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0) && children === 'AD1') {
+    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0) && children === 'AD1' && timeOutIsDone) {
       dispatchNewAdditionalTimeState({ action: 'MINUS_A_SECOND_FROM_ADDITIONAL_TIME' });
     }
 
@@ -106,9 +105,7 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     if (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') {
       setShowAd(false);
     }
-
-    console.log({ cookieTargeted: String(getCookie('targetedAd')) });
-    setTargetedAdMessage(String(getCookie('targetedAd')));
+    setTargetedAdMessage(String(getCookie('targetedAd') || 'The target Ad cookie has been deleted'));
   }, 1000);
 
   return showAd && timeOutIsDone
