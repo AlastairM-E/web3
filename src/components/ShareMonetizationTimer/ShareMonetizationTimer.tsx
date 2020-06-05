@@ -91,6 +91,7 @@ function ShareMonetizationTimer() {
           if (additionalTimeCookieState < 0) {
             return null;
           }
+
           if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
             return (
               <span>
