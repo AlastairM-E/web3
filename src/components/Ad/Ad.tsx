@@ -29,6 +29,18 @@ const StyledAd = styled.span`
     z-index: 1;
 `;
 
+const StyledTargetAdMessage = styled.span`
+  display: contents;
+  font-size: 0.2em;
+  text-align: left;
+`;
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 function useInterval(callback: any, delay: number) {
   const savedCallback = useRef();
 
@@ -55,11 +67,17 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     additionalTimeCookieState,
     dispatchNewAdditionalTimeState,
   } = useContext(Context);
+  const [targetedAdMessage, setTargetedAdMessage] = useState('');
   const [showAd, setShowAd] = useState(true);
 
   const [timeOutIsDone, setTimeOutIsDone] = useState(false);
 
+  useEffect(() => {
+    document.cookie = 'targetedAd=targetedAdWhichEffectsYourPrivacy; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+  }, []);
+
   useInterval(() => {
+    console.log({ cookie: document.cookie });
     // console.log('start of interval', { showAd, additionalTimeCookieState });
     // console.log('inside 1st condition', 0, { showAd, additionalTimeCookieState });
     // console.log('inside 2nd condition', 1, { showAd, additionalTimeCookieState });
@@ -88,10 +106,24 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
     if (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') {
       setShowAd(false);
     }
+
+    console.log({ cookieTargeted: String(getCookie('targetedAd')) });
+    setTargetedAdMessage(String(getCookie('targetedAd')));
   }, 1000);
 
   return showAd && timeOutIsDone
-    ? (<StyledAd gridColumn={gridColumn} gridRow={gridRow}>{ children }</StyledAd>)
+    ? (
+      <StyledAd gridColumn={gridColumn} gridRow={gridRow}>
+        {children}
+        <br />
+        <br />
+        <StyledTargetAdMessage>
+          <br />
+          <br />
+          {targetedAdMessage}
+        </StyledTargetAdMessage>
+      </StyledAd>
+    )
     : null;
 }
 
