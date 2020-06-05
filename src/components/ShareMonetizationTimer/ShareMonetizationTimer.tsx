@@ -64,7 +64,7 @@ function ShareMonetizationTimer() {
   /* HOOKS */
   const [timer, setTimer] = useState(0);
   const [timeOutIsDone, setTimeOutIsDone] = useState(false);
-  const { webMonetizationState } = useContext(Context);
+  const { webMonetizationState, additionalTimeCookieState } = useContext(Context);
 
   useInterval(() => {
     if ((webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') && timeOutIsDone) {
@@ -88,6 +88,30 @@ function ShareMonetizationTimer() {
     <StyledShareMonetizationTimer id="ShareMonetizationTimer">
       <span>
         {(() => {
+          if (additionalTimeCookieState < 0) {
+            return null;
+          }
+          if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
+            return (
+              <span>
+                <StyledTitle>
+                  Share Monetization Timer
+                  <br />
+                </StyledTitle>
+                <StyledContent>
+                  You have this time left :
+                  <br />
+                </StyledContent>
+                {' '}
+                <StyledCounter colour="green">
+                  {(additionalTimeCookieState / 1000)}
+                  s
+                </StyledCounter>
+                <br />
+                <StyledContent>till you back to ads</StyledContent>
+              </span>
+            );
+          }
           if (timer < 5000) {
             return (
               <span>
@@ -111,25 +135,27 @@ function ShareMonetizationTimer() {
             );
           }
 
-          return (
-            <span>
-              <StyledTitle>
-                Share Monetization Timer
+          if ((webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')) {
+            return (
+              <span>
+                <StyledTitle>
+                  Share Monetization Timer
+                  <br />
+                </StyledTitle>
+                <StyledContent>
+                  You have this much additional time :
+                  <br />
+                </StyledContent>
+                {' '}
+                <StyledCounter colour="green">
+                  {(timer / 1000) - 5}
+                  s
+                </StyledCounter>
                 <br />
-              </StyledTitle>
-              <StyledContent>
-                You have this much additional time :
-                <br />
-              </StyledContent>
-              {' '}
-              <StyledCounter colour="green">
-                {(timer / 1000) - 5}
-                s
-              </StyledCounter>
-              <br />
-              <StyledContent>which your next visit will be both web & ad monetization free</StyledContent>
-            </span>
-          );
+                <StyledContent>which your next visit will be both web & ad monetization free</StyledContent>
+              </span>
+            );
+          }
         })()}
       </span>
     </StyledShareMonetizationTimer>

@@ -73,7 +73,7 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
       setShowAd(false);
     }
 
-    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)) {
+    if (additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0) && children === 'AD1') {
       dispatchNewAdditionalTimeState({ action: 'MINUS_A_SECOND_FROM_ADDITIONAL_TIME' });
     }
 
