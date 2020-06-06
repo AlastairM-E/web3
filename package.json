@@ -55,6 +55,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config ./dev-scripts/webpack.dev.js --open",
+    "ts": "tsc",
     "build": "webpack --config ./dev-scripts/webpack.prod.js",
     "test": "jest --watch --verbose --coverage ./src"
   },

@@ -8,7 +8,8 @@ const common = require('./webpack.common');
 
 module.exports = webpackMerge(common, {
   mode: 'production',
-  output: { filename: '[name].[contentHash].bundle.js', path: path.resolve(__dirname, '../dist') },
+  entry: { main: './dist/index.js' },
+  output: { filename: '[name].[contentHash].bundle.js', path: path.resolve(__dirname, '../build') },
   optimization: {
     minimizer: [
       new TerserWebpackPlugin(),
@@ -21,19 +22,25 @@ module.exports = webpackMerge(common, {
 
   module: {
     rules: [
-      { test: /\.scss$/, use: [MiniCSSExtractPlugin.loader, 'css-loader', 'sass-loader'] },
+      { test: /\.css$/, use: [MiniCSSExtractPlugin.loader, 'css-loader'] },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['@babel/plugin-syntax-dynamic-import', '@babel/plugin-transform-runtime', 'babel-plugin-styled-components'],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+              plugins: ['@babel/plugin-syntax-dynamic-import', '@babel/plugin-transform-runtime', 'babel-plugin-styled-components'],
+            },
           },
-        },
+        ],
       },
     ],
+  },
+
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 
   plugins: [new MiniCSSExtractPlugin({ filename: '[name].[contentHash].css' }), new CleanWebpackPlugin()],
