@@ -74,10 +74,10 @@ const slideSideMenuOut = keyframes`
 `;
 
 /* SHORTING FUNCTION */
-const smbdaI = css`animation: ${slideMenuButtonDividerIn} 0.5s ease-in;`;
-const smbdaX = css`animation: ${slideMenuButtonDividerOut} 10s ease-in;`;
-const ssmaI = css`animation: ${slideSideMenuIn} 0.5s ease-in;`;
-const ssmaX = css`animation: ${slideSideMenuOut} 10s ease-in;`;
+const slideMenuButtonDividerInAnimation = css`animation: ${slideMenuButtonDividerIn} 0.5s ease-in;`;
+const slideMenuButtonDividerOutAnimation = css`animation: ${slideMenuButtonDividerOut} 10s ease-in;`;
+const slideSideMenuInAnimation = css`animation: ${slideSideMenuIn} 0.5s ease-in;`;
+const slideSideMenuOutAnimation = css`animation: ${slideSideMenuOut} 10s ease-in;`;
 
 const toggleDisplaySandwichMenu = (props: { isSandwichMenuClicked: boolean}) => {
   if (props.isSandwichMenuClicked) {
@@ -88,26 +88,27 @@ const toggleDisplaySandwichMenu = (props: { isSandwichMenuClicked: boolean}) => 
 
 const toggleDividerAnimation = (props: { isSandwichMenuClickedProps: boolean}) => {
   if (props.isSandwichMenuClickedProps) {
-    return smbdaX;
+    return slideMenuButtonDividerInAnimation;
   }
-  return smbdaI;
+  
+  return slideMenuButtonDividerOutAnimation;
 };
 
 const toggleSideMenuAnimation = (props: { isSandwichMenuClickedProps: boolean}) => {
   if (props.isSandwichMenuClickedProps) {
-    return ssmaX;
+    return slideSideMenuInAnimation;
   }
-  return ssmaI;
+  return slideSideMenuOutAnimation;
 };
 
 
 export {
   slideMenuButtonDividerIn,
   slideMenuButtonDividerOut,
-  smbdaI,
-  smbdaX,
-  ssmaI,
-  ssmaX,
+  slideMenuButtonDividerInAnimation,
+  slideMenuButtonDividerOutAnimation,
+  slideSideMenuInAnimation,
+  slideSideMenuOutAnimation,
   toggleDividerAnimation,
   toggleSideMenuAnimation,
   toggleDisplaySandwichMenu,

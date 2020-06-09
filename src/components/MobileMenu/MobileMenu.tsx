@@ -6,6 +6,14 @@ import {
   toggleDisplaySandwichMenu, toggleDividerAnimation, toggleSideMenuAnimation,
 } from '../../animation';
 
+/* ICONS */
+
+const MobileMenuIcon = 
+  <svg height="48" viewBox="0 0 24 24" width="48">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+  </svg>;
+
 /* INTERFACES */
 interface mobileMenuProperties {
   SideMenuNav: any;
@@ -14,13 +22,10 @@ interface mobileMenuProperties {
 /* STYLES */
 const StyledSandwichMenu = styled.span`
     display: none;
-    padding: 10px 10px 20px 10px;
-    margin: 10px 25px;
-    font-size:2.5em;
+    padding: 10px;
+    margin: 10px;
     cursor: pointer;
-    letter-spacing:-2px;
-    -webkit-transform: rotate(-90deg);
-    border: 2.5px solid lightgreen;
+    border: 2.5px solid white;
     @media screen and (max-width: 670px) {
         display: ${toggleDisplaySandwichMenu};
         :hover {
@@ -63,17 +68,15 @@ const StyledMenuButtonDivider = styled.span`
 `;
 
 const StyledCloseMenuButton = styled.span`
-  height: 40px;
   margin: 10px;
-  font-size:2.5em;
-  padding: 0px 10px 5px;
-  border: 2.5px solid black;
+  padding:10px;
+  height: 48px;
+  border: 2.5px solid white;
   :hover {
-    border: 2.5px solid lightgreen;
+    border: 2.5px solid black;
   }
   color:black;
   cursor: pointer;
-  ${toggleSideMenuAnimation}
 `;
 
 
@@ -81,18 +84,18 @@ const StyledCloseMenuButton = styled.span`
 function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
   /* HOOKS */
   // Create isSandwichMenuClicked & setIsSandwichMenuClicked useState (initial state will be false).
-  const [isSandwichMenuClicked, setIsSandwichMenuClicked] = useState(false);
+  const [isSandwichMenuClicked, setIsSandwichMenuClicked] = useState(null);
 
   /* EVENT LISTENERS */
   // Create a toggleSideMenu function in order for the Side Menu to be toggled off and on.
   const toggleSideMenu = () => setIsSandwichMenuClicked(!isSandwichMenuClicked);
 
   function SideMenu({ isSandwichMenuClickedProps } : { isSandwichMenuClickedProps: boolean }) {
-    return true
+    return isSandwichMenuClicked
       ? ReactDOM.createPortal(
         <>
           <StyledMenuButtonDivider isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
-            <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
+            <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">{MobileMenuIcon}</StyledCloseMenuButton>
           </StyledMenuButtonDivider>
           <StyledSideMenu data-testid="SideMenu" isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
             <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
@@ -115,7 +118,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
         onClick={toggleSideMenu}
         isSandwichMenuClicked={isSandwichMenuClicked}
       >
-        |||
+      {MobileMenuIcon}
       </StyledSandwichMenu>
       <SideMenu isSandwichMenuClickedProps={isSandwichMenuClicked} />
     </>

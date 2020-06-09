@@ -119,3 +119,5 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
 
   expect(doesSideMenuNavExist()).toBeUndefined();
 });
+
+

@@ -21,7 +21,7 @@ const StyledNavbar = styled.div`
     grid-row:1/3;
     align-items:center;
     border-bottom: 5px solid black;
-    background:lightgreen;
+    background:white;
     color: black;
 `;
 
@@ -30,10 +30,11 @@ const StyledNavbar = styled.div`
 // - Give the property of flex 1, which means it will be on the left hand side and
 //   all other element will be on the right-hand side, with considerable distance between
 //   the two.
-const Title = styled.h2`
+const Title = styled.a`
     padding: 10px;
     margin: 10px;
     flex:1;
+    font-size:1.5em;
 `;
 
 /* PageLink styles: */
@@ -50,16 +51,13 @@ const PageLink = styled.a`
     text-decoration: none;
     color: black;
     font-size:1.5em;
-    border-bottom: 2.5px solid lightgreen;
+    border-bottom: 2.5px solid white;
       :hover {
         border-bottom: 2.5px solid black;
       }
 
     @media screen and (max-width: 670px) {
-      border-bottom: 2.5px solid black;
-      :hover {
-        border-bottom: 2.5px solid lightgreen;
-      }
+      border-bottom: 2.5px solid white;
     }
 `;
 
