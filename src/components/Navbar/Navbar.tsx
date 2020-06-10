@@ -32,8 +32,10 @@ const StyledNavbar = styled.div`
 //   the two.
 const Title = styled.a`
     padding: 10px;
-    margin: 10px;
-    flex:1;
+    margin: 10px 10px 10px auto;
+    flex:0.525;
+    justify-self:center;
+    align-items:center;
     font-size:1.5em;
 `;
 
@@ -55,21 +57,17 @@ const PageLink = styled.a`
       :hover {
         border-bottom: 2.5px solid black;
       }
-
-    @media screen and (max-width: 670px) {
-      border-bottom: 2.5px solid white;
-    }
 `;
 
-const DesktopPageLinks = styled.span`
-  * {
-    padding: 10px;
-    margin: 10px;
-  }
-  @media screen and (max-width: 670px) {
-        display:none;
-  }
-`;
+// const DesktopPageLinks = styled.span`
+//   * {
+//     padding: 10px;
+//     margin: 10px;
+//   }
+//   @media screen and (max-width: 670px) {
+//         display:none;
+//   }
+// `;
 
 
 /* COMPONENT */
@@ -87,7 +85,7 @@ function Navbar({ title }: Title) {
   return (
     <StyledNavbar data-testid="Navbar">
       <Title>{title}</Title>
-      <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks>
+      {/* <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks> */}
       <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );

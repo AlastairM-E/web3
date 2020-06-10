@@ -75,9 +75,9 @@ const slideSideMenuOut = keyframes`
 
 /* SHORTING FUNCTION */
 const slideMenuButtonDividerInAnimation = css`animation: ${slideMenuButtonDividerIn} 0.5s ease-in;`;
-const slideMenuButtonDividerOutAnimation = css`animation: ${slideMenuButtonDividerOut} 10s ease-in;`;
+const slideMenuButtonDividerOutAnimation = css`animation: ${slideMenuButtonDividerOut} 0.5s ease-in;`;
 const slideSideMenuInAnimation = css`animation: ${slideSideMenuIn} 0.5s ease-in;`;
-const slideSideMenuOutAnimation = css`animation: ${slideSideMenuOut} 10s ease-in;`;
+const slideSideMenuOutAnimation = css`animation: ${slideSideMenuOut} 0.5s ease-in;`;
 
 const toggleDisplaySandwichMenu = (props: { isSandwichMenuClicked: boolean}) => {
   if (props.isSandwichMenuClicked) {
@@ -90,7 +90,7 @@ const toggleDividerAnimation = (props: { isSandwichMenuClickedProps: boolean}) =
   if (props.isSandwichMenuClickedProps) {
     return slideMenuButtonDividerInAnimation;
   }
-  
+
   return slideMenuButtonDividerOutAnimation;
 };
 

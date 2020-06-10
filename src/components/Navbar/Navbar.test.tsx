@@ -13,6 +13,6 @@ test('should have all the links and elements the Navbar has been given', () => {
   const navbarLength = getByTestId('Navbar').children.length;
   const firstElementsText = getByTestId('Navbar').children[0].textContent;
   // all text elements and the hidden Sandwich Menu
-  expect(navbarLength).toStrictEqual(3);
+  expect(navbarLength).toStrictEqual(2);
   expect(firstElementsText).toStrictEqual(title);
 });
