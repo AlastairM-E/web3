@@ -14,8 +14,6 @@ client.connect(async (err) => {
   const { cmd } = findCount();
   const { query } = cmd;
 
-  console.log({ query });
-
   await testCollection.updateOne(query,
     {
       $set: {

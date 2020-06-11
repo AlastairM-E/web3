@@ -6,7 +6,6 @@
 /.pnp
 /yarn.lock
 /server
-/xyz
 
 .pnp.js
 plan.txt
