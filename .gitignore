@@ -5,6 +5,9 @@
 /dist
 /.pnp
 /yarn.lock
+/server/db.detail.ts
+/server/db.detail.js
+
 .pnp.js
 plan.txt
 

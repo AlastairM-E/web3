@@ -6,8 +6,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongodb": "^3.5.20",
+    "@types/node": "^14.0.13",
     "@types/react-helmet": "^6.0.0",
     "eslint-plugin-jest": "^23.8.2",
+    "mongodb": "^3.5.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
@@ -57,7 +60,8 @@
     "start": "webpack-dev-server --config ./dev-scripts/webpack.dev.js --open",
     "ts": "tsc",
     "build": "webpack --config ./dev-scripts/webpack.prod.js",
-    "test": "jest --watch --verbose --coverage ./src"
+    "test": "jest --watch --verbose --coverage ./src",
+    "serve": "node ./server/index.ts"
   },
   "jest": {
     "transform": {
