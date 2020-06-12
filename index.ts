@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 const express = require('express');
-const { url, dbName, collectionName } = require('./server/db.details.ts');
+const { url, dbName, collectionName } = require('./serve/db.details.ts');
 
 const app = express();
 const port = 8080;
