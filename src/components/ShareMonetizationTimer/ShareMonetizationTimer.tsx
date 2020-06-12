@@ -83,92 +83,12 @@ function ShareMonetizationTimer() {
         setTimeOutIsDone(true);
       }, 1000);
     }
-
-    if (timer > 5000 && (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')) {
-      document.cookie = `additionalTime=${(timer - 5000)}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-    }
-  }, [timer, timeOutIsDone]);
-
-  console.log({ check: (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined) });
+  }, [timeOutIsDone]);
 
   /* RENDER */
   return timeOutIsDone ? (
     <StyledShareMonetizationTimer id="ShareMonetizationTimer">
-      <span>
-        {(() => {
-          if (additionalTimeCookieState < 0) {
-            return null;
-          }
-
-          if (
-            additionalTimeCookieState > 0 && !(additionalTimeCookieState < 0)
-          ) {
-            return (
-              <span>
-                <StyledTitle>
-                  Share Monetization Timer
-                  <br />
-                </StyledTitle>
-                <StyledContent>
-                  You have this time left :
-                  <br />
-                </StyledContent>
-                {' '}
-                <StyledCounter colour="green">
-                  {(additionalTimeCookieState / 1000)}
-                  s
-                </StyledCounter>
-                <br />
-                <StyledContent>till you back to ads</StyledContent>
-              </span>
-            );
-          }
-          if (timer < 5000) {
-            return (
-              <span>
-                {' '}
-                <StyledTitle>
-                  Share Monetization Timer
-                  <br />
-                </StyledTitle>
-                <StyledContent>
-                  you have
-                  <br />
-                </StyledContent>
-                {' '}
-                <StyledCounter colour="darkred">
-                  {5 - (timer / 1000)}
-                  s
-                </StyledCounter>
-                <br />
-                <StyledContent>to go before you will get your web monetization back</StyledContent>
-              </span>
-            );
-          }
-
-          if ((webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')) {
-            return (
-              <span>
-                <StyledTitle>
-                  Share Monetization Timer
-                  <br />
-                </StyledTitle>
-                <StyledContent>
-                  You have this much additional time :
-                  <br />
-                </StyledContent>
-                {' '}
-                <StyledCounter colour="green">
-                  {(timer / 1000) - 5}
-                  s
-                </StyledCounter>
-                <br />
-                <StyledContent>which your next visit will be both web & ad monetization free</StyledContent>
-              </span>
-            );
-          }
-        })()}
-      </span>
+      <StyledTitle>Hello world</StyledTitle>
     </StyledShareMonetizationTimer>
   ) : null;
 }

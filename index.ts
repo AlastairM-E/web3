@@ -16,9 +16,13 @@ app.put('/addToCount', (req, res) => {
 
     const db = client.db(dbName);
     const testCollection = db.collection(collectionName);
-    const counter = testCollection.findOne({ type: 'counter' });
 
-    await testCollection.updateOne(counter, { count: counter + 1000 });
+    const counter = await testCollection.findOne({ type: 'counter' });
+
+    await testCollection.updateOne(counter, {
+      $set: { type: counter.type, count: counter.count + 1000 },
+    });
+
     await client.close();
   });
 

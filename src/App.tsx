@@ -20,9 +20,9 @@ function App() {
     <ContextProvider>
       <WebMonetization />
       <Navbar title="Alastair M-E" />
-      <Ad gridColumn={'1/3'} gridRow={'3/13'}>AD1</Ad>
+      <Ad gridColumn={'1/3'} gridRow={'3/13'}>You should get coil 1</Ad>
       <Article articles={articles} />
-      <Ad gridColumn={'11/13'} gridRow={'3/13'}>AD2</Ad>
+      <Ad gridColumn={'11/13'} gridRow={'3/13'}>You should get coil 2</Ad>
       <ShareMonetizationTimer />
       <DeleteCookieMessage />
     </ContextProvider>
