@@ -106,6 +106,7 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
       setShowAd(false);
     }
     setTargetedAdMessage(String(getCookie('targetedAd') || 'The target Ad cookie has been deleted'));
+    fetch('http://localhost:8080/updateCount', { method: 'PUT' });
   }, 1000);
 
   return showAd && timeOutIsDone
