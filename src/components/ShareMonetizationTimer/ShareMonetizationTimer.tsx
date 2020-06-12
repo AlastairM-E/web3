@@ -67,8 +67,13 @@ function ShareMonetizationTimer() {
   const { webMonetizationState, additionalTimeCookieState } = useContext(Context);
 
   useInterval(() => {
-    if ((webMonetizationState.state === 'started' || webMonetizationState.state === 'pending') && timeOutIsDone) {
-      setTimer(timer + 1000);
+    setTimer(timer + 1000);
+    if (
+      (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')
+      && timeOutIsDone
+      && timer >= 5000
+    ) {
+      fetch('http://localhost:8080/addToCount', { method: 'PUT' });
     }
   }, 1000);
 

@@ -5,8 +5,9 @@ const { url, dbName, collectionName } = require('./server/db.details.ts');
 const app = express();
 const port = 8080;
 
-app.put('/updateCount', (req, res) => {
-  console.log('This is new');
+
+app.put('/addToCount', (req, res) => {
+  console.log('Recived response');
   const client = new MongoClient(url, { useUnifiedTopology: true });
 
   // Use connect method to connect to the Server
@@ -15,21 +16,13 @@ app.put('/updateCount', (req, res) => {
 
     const db = client.db(dbName);
     const testCollection = db.collection(collectionName);
-    const findCount = await testCollection.findOne({ accumulator: 1 });
+    const counter = testCollection.findOne({ type: 'counter' });
 
-    const { count, accumulator } = findCount;
-
-    await testCollection.updateOne(findCount,
-      {
-        $set: {
-          count: count + accumulator,
-          accumulator,
-        },
-      });
+    await testCollection.updateOne(counter, { count: counter + 1000 });
     await client.close();
   });
 
-  res.send('hello world');
+  res.send({ req });
 });
 
 app.listen(port);

@@ -61,7 +61,7 @@ function useInterval(callback: any, delay: number) {
   }, [delay]);
 }
 
-function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: string; children: any }) {
+function Ad({ gridColumn, gridRow, children }: { gridColumn: string; gridRow: string; children: any }) {
   const {
     webMonetizationState,
     additionalTimeCookieState,
@@ -106,7 +106,6 @@ function Ad({ gridColumn, gridRow, children }: { gridColumn : string; gridRow: s
       setShowAd(false);
     }
     setTargetedAdMessage(String(getCookie('targetedAd') || 'The target Ad cookie has been deleted'));
-    fetch('http://localhost:8080/updateCount', { method: 'PUT' });
   }, 1000);
 
   return showAd && timeOutIsDone
