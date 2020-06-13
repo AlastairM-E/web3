@@ -64,16 +64,16 @@ function ShareMonetizationTimer() {
   /* HOOKS */
   const [timer, setTimer] = useState(0);
   const [timeOutIsDone, setTimeOutIsDone] = useState(false);
-  const { webMonetizationState, additionalTimeCookieState } = useContext(Context);
+  const { webMonetizationState } = useContext(Context);
 
-  useInterval(() => {
+  useInterval(async () => {
     setTimer(timer + 1000);
     if (
       (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')
       && timeOutIsDone
       && timer >= 5000
     ) {
-      fetch('http://localhost:8080/addToCount', { method: 'PUT' });
+      await fetch('/addToCount', { method: 'PUT' });
     }
   }, 1000);
 

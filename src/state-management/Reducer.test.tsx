@@ -82,7 +82,7 @@ test('addtionalTimeCookieReducer functions properly', () => {
 
   const additionalTime3000 = 3000;
   const addAdditionalTime3000FromCookieAction = {
-    action: 'ADD_COOKIE_ADDITIONAL_TIME',
+    action: 'ADD_ADDITIONAL_TIME',
     cookie: `additionalTime=${additionalTime3000}`,
   };
   const additionalTimeAddedCookieReducer = additionalTimeCookieReducer(

@@ -1,43 +1,22 @@
 /* IMPORTS */
 import React, {
-  useState, useEffect, useRef,
+  useState, useEffect, useRef, useContext,
 } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
-/* ANIMATION */
-const changeBackgroundColour = keyframes`
-    from {
-        background: linear-gradient(red, orange);
-    }
-
-    to {
-        background: linear-gradient(yellow, lightgreen);
-    }
-`;
+import { Context } from '../../state-management/ContextProvider';
 
 const StyledAd = styled.span`
-    color: #000;
     display: flex;
     align-items:center;
     justify-content: center;
     font-size: 4em;
-    animation: ${changeBackgroundColour} 6s ease-in-out infinite;
     grid-column: ${(props) => props.gridColumn};
     grid-row: ${(props) => props.gridRow};
+    background: black;
+    color:white;
     z-index: 1;
 `;
-
-const StyledTargetAdMessage = styled.span`
-  display: contents;
-  font-size: 0.2em;
-  text-align: left;
-`;
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
 
 function useInterval(callback: any, delay: number) {
   const savedCallback = useRef();
@@ -60,15 +39,31 @@ function useInterval(callback: any, delay: number) {
 }
 
 function Ad({ gridColumn, gridRow, children }: { gridColumn: string; gridRow: string; children: any }) {
+  const { webMonetizationState } = useContext(Context);
   const [timeOutIsDone, setTimeOutIsDone] = useState(false);
+  const [showAd, setShowAd] = useState(true);
 
-  useInterval(() => {
+  useInterval(async () => {
     if (timeOutIsDone === false) {
       setTimeOutIsDone(true);
+      await fetch('/isMinuteTokenAvailable', { method: 'PUT' });
     }
+    const countJson = await fetch('./count.json');
+    const { showContentForMinute } = await countJson.json();
+    if (showContentForMinute) setShowAd(false);
   }, 1000);
 
-  return timeOutIsDone
+  // useInterval(async () => {
+  //   if (webMonetizationState.state === null || webMonetizationState.state === undefined) {
+  //     await fetch('/isMinuteTokenAvailable', { method: 'PUT' });
+  //     const countJsonData = await JSON.parse(
+  //       await fetch('./count.json'),
+  //     );
+  //     console.log({ countJsonData });
+  //   }
+  // }, 60000);
+
+  return timeOutIsDone && showAd
     ? (
       <StyledAd gridColumn={gridColumn} gridRow={gridRow}>
         {children}

@@ -24,10 +24,10 @@ function toggleMonetizationReducer(state: any, { action }: { action: string; }) 
   }
 }
 
-function additionalTimeCookieReducer(state: any, { action, cookie = '' }: { action: string; cookie?: string; }) {
+function additionalTimeCookieReducer(state: any, { action, additionalTime }: { action: string; cookie?: string; }) {
   switch (action) {
-    case 'ADD_COOKIE_ADDITIONAL_TIME':
-      return Number(cookie.split('additionalTime=')[1]);
+    case 'ADD_ADDITIONAL_TIME':
+      return additionalTime;
 
     case 'MINUS_A_SECOND_FROM_ADDITIONAL_TIME':
       return state - 1000;
