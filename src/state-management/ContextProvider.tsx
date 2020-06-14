@@ -4,19 +4,6 @@ import { webMonetizationReducer, toggleMonetizationReducer, additionalTimeCookie
 
 const Context = React.createContext({});
 
-function initialCookieReading(initialState: void): void | number {
-  if (document.cookie) {
-    const initialCookieValue = additionalTimeCookieReducer(
-      initialState,
-      { action: 'ADD_COOKIE_ADDITIONAL_TIME', cookie: document.cookie },
-    );
-    document.cookie = 'additionalTime=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    return initialCookieValue;
-  }
-
-  return initialState;
-}
-
 function ContextProvider({ children }: { children: any }) {
   const [webMonetizationState, dispatchWebMonetizationState] = useReducer(
     webMonetizationReducer,
@@ -28,10 +15,9 @@ function ContextProvider({ children }: { children: any }) {
     true,
   );
 
-  const [additionalTimeCookieState, dispatchNewAdditionalTimeState] = useReducer(
+  const [additionalTimeState, dispatchNewAdditionalTimeState] = useReducer(
     additionalTimeCookieReducer,
     null,
-    initialCookieReading,
   );
 
   return (
@@ -40,7 +26,7 @@ function ContextProvider({ children }: { children: any }) {
       dispatchWebMonetizationState,
       toggleWebMonetization,
       dispatchToggleMonetization,
-      additionalTimeCookieState,
+      additionalTimeState,
       dispatchNewAdditionalTimeState,
     }}
     >

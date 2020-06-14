@@ -30,7 +30,7 @@ app.put('/addToCount', (req, res) => {
     await client.close();
   });
 
-  res.send({ req });
+  res.send({ endMessage: 'add a second to count request has finished' });
 });
 
 app.put('/isMinuteTokenAvailable', (req, res) => {
@@ -46,20 +46,19 @@ app.put('/isMinuteTokenAvailable', (req, res) => {
 
     const counter = await testCollection.findOne({ type: 'counter' });
     const { count } = counter;
-    if (count >= 60000) {
-      const changedTotal = count - 60000;
+    if (count >= 5000) {
+      const changedTotal = count - 5000;
       await testCollection.updateOne(counter, {
         $set: { type: counter.type, count: changedTotal },
       });
-      await fs.writeFile('./public/count.json', '{ "showContentForMinute": true }', 'utf8', throwError);
-    }
 
-    await fs.writeFile('./public/count.json', '{ "showContentForMinute": false }', 'utf8', throwError);
+      res.send({ showContentForMinute: true });
+    } else {
+      res.send({ showContentForMinute: false });
+    }
 
     await client.close();
   });
-
-  res.send({ req });
 });
 
 app.listen(port);

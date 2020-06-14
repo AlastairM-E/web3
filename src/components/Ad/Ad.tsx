@@ -39,29 +39,39 @@ function useInterval(callback: any, delay: number) {
 }
 
 function Ad({ gridColumn, gridRow, children }: { gridColumn: string; gridRow: string; children: any }) {
-  const { webMonetizationState } = useContext(Context);
+  const { webMonetizationState, additionalTimeState } = useContext(Context);
   const [timeOutIsDone, setTimeOutIsDone] = useState(false);
   const [showAd, setShowAd] = useState(true);
 
   useInterval(async () => {
+    console.log({ additionalTimeState });
     if (timeOutIsDone === false) {
       setTimeOutIsDone(true);
-      await fetch('/isMinuteTokenAvailable', { method: 'PUT' });
+      return null;
     }
-    const countJson = await fetch('./count.json');
-    const { showContentForMinute } = await countJson.json();
-    if (showContentForMinute) setShowAd(false);
-  }, 1000);
 
-  // useInterval(async () => {
-  //   if (webMonetizationState.state === null || webMonetizationState.state === undefined) {
-  //     await fetch('/isMinuteTokenAvailable', { method: 'PUT' });
-  //     const countJsonData = await JSON.parse(
-  //       await fetch('./count.json'),
-  //     );
-  //     console.log({ countJsonData });
-  //   }
-  // }, 60000);
+    if (additionalTimeState && timeOutIsDone) {
+      setShowAd(false);
+      return null;
+    }
+
+    if (
+      (webMonetizationState.state === 'stopped' || webMonetizationState.state === undefined)
+      && timeOutIsDone
+    ) {
+      setShowAd(true);
+      return null;
+    }
+
+
+    if (
+      (webMonetizationState.state === 'started' || webMonetizationState.state === 'pending')
+      && timeOutIsDone
+    ) {
+      setShowAd(false);
+      return null;
+    }
+  }, 1000);
 
   return timeOutIsDone && showAd
     ? (

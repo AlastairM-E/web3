@@ -6,7 +6,7 @@ import React from 'react';
 import { articles } from './mockArticles';
 import { ContextProvider } from './state-management/ContextProvider';
 import {
-  Navbar, Article, WebMonetization, Ad, ShareMonetizationTimer, DeleteCookieMessage,
+  Navbar, Article, WebMonetization, Ad, ShareMonetizationTimer,
 } from './components/index';
 
 /* COMPONENT */
@@ -24,7 +24,6 @@ function App() {
       <Article articles={articles} />
       <Ad gridColumn={'11/13'} gridRow={'3/13'}>You should get coil 2</Ad>
       <ShareMonetizationTimer />
-      <DeleteCookieMessage />
     </ContextProvider>
   );
 }
