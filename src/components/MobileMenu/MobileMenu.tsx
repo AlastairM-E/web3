@@ -1,9 +1,10 @@
 /* IMPORTS */
 import React, { useState, Fragment, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import {
-  toggleDisplaySandwichMenu, toggleDividerAnimation, toggleSideMenuAnimation,
+  toggleDividerAnimation, toggleSideMenuAnimation,
 } from '../../animation';
 
 /* ICONS */
