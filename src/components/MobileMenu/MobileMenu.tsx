@@ -8,7 +8,6 @@ import {
 } from '../../animation';
 
 /* ICONS */
-
 const MobileMenuIcon = (
   <svg height="48" viewBox="0 0 24 24" width="48">
     <path d="M0 0h24v24H0z" fill="none" />
@@ -23,29 +22,23 @@ interface mobileMenuProperties {
 
 /* STYLES */
 const StyledSandwichMenu = styled.span`
-    /* display: none; */
     padding: 10px;
     margin: 10px;
     cursor: pointer;
     border: 2.5px solid white;
-    /* @media screen and (max-width: 670px) { */
-        display: /* ${toggleDisplaySandwichMenu} */ inline-block;
-        :hover {
-            border: 2.5px solid black;
-        }
-    /* } */
+    display:inline-block;
+    :active {
+      border: 2.5px solid black;
+    }
 `;
 
 const StyledSideMenu = styled.span`
-  /* display:none;
-  @media screen and (max-width: 670px) { */
     display:inline-block;
     background: white;
     grid-row: 3/13;
     grid-column: 9/13;
     border-left: 5px solid black;
    ${toggleSideMenuAnimation};
-  /* } */
 `;
 const StyledSideMenuNav = styled.ul`
   * {
@@ -55,30 +48,16 @@ const StyledSideMenuNav = styled.ul`
 `;
 
 const StyledMenuButtonDivider = styled.span`
-  /* display: none;
-  @media screen and (max-width: 670px) { */
     display: flex;
     justify-content: flex-end;
     border-left: 5px solid black;
     border-bottom: 5px solid black;
     grid-column: 9/13;
     grid-row: 1/3;
+    align-items:center;
     background: white;
     z-index:1;
     ${toggleDividerAnimation}
-  /* } */
-`;
-
-const StyledCloseMenuButton = styled.span`
-  margin: 10px;
-  padding:10px;
-  height: 48px;
-  border: 2.5px solid white;
-  :hover {
-    border: 2.5px solid black;
-  }
-  color:black;
-  cursor: pointer;
 `;
 
 
@@ -90,7 +69,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
 
   useEffect(() => {
     if (isSandwichMenuClicked === null) {
-      setTimeout(() => setIsSandwichMenuClicked(false), 470);
+      setTimeout(() => setIsSandwichMenuClicked(false), 490);
     }
   }, [isSandwichMenuClicked]);
   /* EVENT LISTENERS */
@@ -101,12 +80,12 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
     return isSandwichMenuClicked === true || isSandwichMenuClicked === null
       ? ReactDOM.createPortal(
         <>
-          <StyledMenuButtonDivider isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
-            <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">{MobileMenuIcon}</StyledCloseMenuButton>
-          </StyledMenuButtonDivider>
-          <StyledSideMenu data-testid="SideMenu" isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
+          <motion.StyledMenuButtonDivider isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
+            <StyledSandwichMenu onClick={toggleSideMenu} data-testid="CloseMenuButton">{MobileMenuIcon}</StyledSandwichMenu>
+          </motion.StyledMenuButtonDivider>
+          <motion.StyledSideMenu data-testid="SideMenu" isSandwichMenuClickedProps={isSandwichMenuClickedProps}>
             <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
-          </StyledSideMenu>
+          </motion.StyledSideMenu>
         </>,
         document.getElementById('root'),
       ) : null;
