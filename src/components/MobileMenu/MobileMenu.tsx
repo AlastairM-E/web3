@@ -44,8 +44,6 @@ const StyledSandwichMenu = styled.span`
 const StyledSideMenu = styled(motion.span)`
     display:inline-block;
     background: white;
-    grid-row: 3/13;
-    grid-column: 9/13;
     border-left: 5px solid black;
     z-index: 1;
 `;
@@ -61,8 +59,6 @@ const StyledSandwichMenuDivider = styled(motion.span)`
     justify-content: flex-end;
     border-left: 5px solid black;
     border-bottom: 5px solid black;
-    grid-column: 9/13;
-    grid-row: 1/3;
     align-items:center;
     background: white;
     z-index:1;
@@ -82,10 +78,14 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
       }, 300);
     }
   }, [isSandwichMenuClicked]);
+
   /* EVENT LISTENERS */
   // Create a toggleSideMenu function in order for the Side Menu to be toggled off and on.
-  const toggleSideMenu = () => setIsSandwichMenuClicked(isSandwichMenuClicked === true ? null : true);
+  const toggleSideMenu = () => {
+    setIsSandwichMenuClicked(isSandwichMenuClicked === true ? null : true);
+  };
 
+  /* SideMenu COMPONENT */
   function SideMenu() {
     return isSandwichMenuClicked === true || isSandwichMenuClicked === null
       ? ReactDOM.createPortal(
@@ -97,7 +97,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
             transition={transition}
             variants={sandwichMenuDividerVarients}
           >
-            <StyledSandwichMenu onClick={toggleSideMenu} data-testid="CloseMenuButton">{MobileMenuIcon}</StyledSandwichMenu>
+            <StyledSandwichMenu onClick={toggleSideMenu} id="CloseMenuButton">{MobileMenuIcon}</StyledSandwichMenu>
           </StyledSandwichMenuDivider>
           <StyledSideMenu
             initial={isSandwichMenuClicked ? 'InitSideMenuIn' : 'InitSideMenuOut'}

@@ -67,10 +67,10 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   container.setAttribute('id', 'root');
 
   const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
-  const doesCloseMenuButtonExist = () => document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
+  const doesCloseMenuButtonExist = () => document.getElementById('CloseMenuButton');
 
   expect(doesSideMenuExist()).toBeUndefined();
-  expect(doesCloseMenuButtonExist()).toBeUndefined();
+  expect(doesCloseMenuButtonExist()).toBeNull();
 
   const virtualMobileMenu = getByTestId('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
@@ -80,7 +80,7 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
 
   expect(setTimeout).toHaveBeenCalledTimes(1);
 
-  const virtualCloseMenuButton = document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
+  const virtualCloseMenuButton = document.getElementById('CloseMenuButton');
   fireEvent.click(virtualCloseMenuButton);
 
   act(() => {
@@ -89,7 +89,7 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   });
 
   expect(doesSideMenuExist()).toBeUndefined();
-  expect(doesCloseMenuButtonExist()).toBeUndefined();
+  expect(doesCloseMenuButtonExist()).toBeNull();
 });
 
 test('The MobileMenu should return a SideMenu which contains menu items whcih the MobileMenu was passed down and only available on the actived SideMenu', () => {
@@ -140,7 +140,7 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
 
   expect(setTimeout).toHaveBeenCalledTimes(1);
 
-  const virtualCloseMenuButton = getByTestId('CloseMenuButton');
+  const virtualCloseMenuButton = document.getElementById('CloseMenuButton');
 
   fireEvent.click(virtualCloseMenuButton);
   act(() => {
@@ -156,6 +156,7 @@ test('The background of the content is darkened when the Sandwich menu is clicke
   container.setAttribute('id', 'root');
 
   const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualCloseMenuButton = () => document.getElementById('CloseMenuButton');
   const doesSideMenuDarkenBackgroundExist = () => document.getElementById('SideMenuDarkenBackground');
 
   expect(doesSideMenuDarkenBackgroundExist()).toBeNull();
@@ -164,7 +165,7 @@ test('The background of the content is darkened when the Sandwich menu is clicke
 
   expect(doesSideMenuDarkenBackgroundExist()).toBeTruthy();
 
-  fireEvent.click(virtualMobileMenu);
+  fireEvent.click(virtualCloseMenuButton());
   act(() => {
     jest.advanceTimersByTime(500);
     expect(setTimeout).toHaveBeenCalledTimes(3);
