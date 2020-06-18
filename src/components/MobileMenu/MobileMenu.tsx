@@ -23,6 +23,13 @@ interface mobileMenuProperties {
 }
 
 /* STYLES */
+const StyledSideMenuDarkenBackground = styled.div`
+  background: rgba(0,0,0,0.25);
+  grid-column: 1/13;
+  grid-row:1/13;
+  transition:2s;
+`;
+
 const StyledSandwichMenu = styled.span`
     padding: 10px;
     margin: 10px;
@@ -40,6 +47,7 @@ const StyledSideMenu = styled(motion.span)`
     grid-row: 3/13;
     grid-column: 9/13;
     border-left: 5px solid black;
+    z-index: 1;
 `;
 const StyledSideMenuNav = styled.ul`
   * {
@@ -69,7 +77,9 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
 
   useEffect(() => {
     if (isSandwichMenuClicked === null) {
-      setTimeout(() => setIsSandwichMenuClicked(false), 300);
+      setTimeout(() => {
+        setIsSandwichMenuClicked(false);
+      }, 300);
     }
   }, [isSandwichMenuClicked]);
   /* EVENT LISTENERS */
@@ -80,6 +90,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
     return isSandwichMenuClicked === true || isSandwichMenuClicked === null
       ? ReactDOM.createPortal(
         <>
+          <StyledSideMenuDarkenBackground id="SideMenuDarkenBackground" />
           <StyledSandwichMenuDivider
             initial={isSandwichMenuClicked ? 'InitDividerIn' : 'InitDividerOut'}
             animate={isSandwichMenuClicked ? 'slideDividerIn' : 'slideDividerOut'}

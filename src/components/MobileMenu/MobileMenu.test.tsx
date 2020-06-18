@@ -1,9 +1,12 @@
 /* IMPORTS */
 import React, { Fragment } from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import MobileMenu from './MobileMenu';
 
-jest.useFakeTimers();
+beforeEach(() => {
+  jest.useFakeTimers();
+});
 
 /* TESTS */
 test('Check that the MobileMenu makes a SideMenu only', () => {
@@ -21,7 +24,7 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
   // wait that check.
   // when the SideMenu is queried for again, should return nothing.
 
-  const { container, getByTestId } = render(<MobileMenu />);
+  const { container, getByTestId } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
   expect(container.children.length).toBe(1);
 
@@ -32,13 +35,12 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuExist()).toBeTruthy();
-
   expect(setTimeout).toHaveBeenCalledTimes(1);
-
-  fireEvent.click(virtualMobileMenu);
-
-  jest.advanceTimersByTime(500);
-  expect(setTimeout).toHaveBeenCalledTimes(2);
+  act(() => {
+    fireEvent.click(virtualMobileMenu);
+    jest.advanceTimersByTime(500);
+  });
+  expect(setTimeout).toHaveBeenCalledTimes(3);
 
   expect(doesSideMenuExist()).toBeUndefined();
 });
@@ -61,7 +63,7 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   // wait that check.
   // Therefore, they should both return undefined for the same reason.
 
-  const { container, getByTestId } = render(<MobileMenu />);
+  const { container, getByTestId } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
 
   const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
@@ -81,8 +83,10 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   const virtualCloseMenuButton = document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
   fireEvent.click(virtualCloseMenuButton);
 
-  jest.advanceTimersByTime(500);
-  expect(setTimeout).toHaveBeenCalledTimes(2);
+  act(() => {
+    jest.advanceTimersByTime(500);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+  });
 
   expect(doesSideMenuExist()).toBeUndefined();
   expect(doesCloseMenuButtonExist()).toBeUndefined();
@@ -117,11 +121,10 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
     </>
   );
   const { container, getByTestId } = render(
-    <MobileMenu SideMenuNav={ListOfPageLinks}>|||</MobileMenu>,
+    <MobileMenu SideMenuNav={ListOfPageLinks} />,
   );
   container.setAttribute('id', 'root');
   const doesSideMenuNavExist = () => document.querySelectorAll('[data-testid="SideMenuNav"]')[0];
-
 
   expect(doesSideMenuNavExist()).toBeUndefined();
 
@@ -138,10 +141,34 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
   expect(setTimeout).toHaveBeenCalledTimes(1);
 
   const virtualCloseMenuButton = getByTestId('CloseMenuButton');
-  fireEvent.click(virtualCloseMenuButton);
 
-  jest.advanceTimersByTime(500);
-  expect(setTimeout).toHaveBeenCalledTimes(2);
+  fireEvent.click(virtualCloseMenuButton);
+  act(() => {
+    jest.advanceTimersByTime(500);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+  });
 
   expect(doesSideMenuNavExist()).toBeUndefined();
+});
+
+test('The background of the content is darkened when the Sandwich menu is clicked and toggle off when click again', () => {
+  const { container, getByTestId } = render(<MobileMenu SideMenuNav />);
+  container.setAttribute('id', 'root');
+
+  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const doesSideMenuDarkenBackgroundExist = () => document.getElementById('SideMenuDarkenBackground');
+
+  expect(doesSideMenuDarkenBackgroundExist()).toBeNull();
+
+  fireEvent.click(virtualMobileMenu);
+
+  expect(doesSideMenuDarkenBackgroundExist()).toBeTruthy();
+
+  fireEvent.click(virtualMobileMenu);
+  act(() => {
+    jest.advanceTimersByTime(500);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+  });
+
+  expect(doesSideMenuDarkenBackgroundExist()).toBeNull();
 });

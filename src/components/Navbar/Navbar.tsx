@@ -9,12 +9,6 @@ interface Title {
   title: string;
 }
 
-// styled from styled-components
-
-/* Navbar styles: */
-// - Display the Navbar in css flexbox.
-// - It takes up about a quarter of page in height and the entire width of the page.
-// - It is aligns the items in the middle of Navbar, between the top and the bottom.
 const StyledNavbar = styled.div`
     display:flex;
     grid-column:1/13;
@@ -25,30 +19,20 @@ const StyledNavbar = styled.div`
     color: black;
 `;
 
-/* Navbar Title styles: */
-// - Give the title padding of 10px and a margin of 10px.
-// - Give the property of flex 1, which means it will be on the left hand side and
-//   all other element will be on the right-hand side, with considerable distance between
-//   the two.
 const Title = styled.a`
-    padding: 10px;
-    margin: 10px 10px 10px auto;
-    flex:0.525;
-    justify-self:center;
-    align-items:center;
-    font-size:1.5em;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  margin: 10px 10px 10px auto;
+  flex:0.55;
+  text-transform: uppercase;
+  justify-self:center;
+  align-items:center;
+  font-size:2em;
+  @media screen and (max-width: 670px) {
+    font-size: 1.1em;
+  }
 `;
 
-/* PageLink styles: */
-// - Has a padding of 10px and a margin of 10pxs.
-// - Will be on the end due to the Title property of flex 1.
-// - Has no underline as it is an A tag, which has a default underline.
-// - Has a color of white to make sure that the a tage does default the colors of blue/red/purple
-//   for when it has been unclicked/is current clicked/and has been clicked.
-// - On hover, it will produce a bottom border of 2.5px, solid and white,
-//   which is a bit like an underline, but with more padding.
-// - on the medium of screens and when the page ahs a max-width of 670px,
-//   the a links will disappear.
 const PageLink = styled.a`
     text-decoration: none;
     color: black;
@@ -58,17 +42,6 @@ const PageLink = styled.a`
         border-bottom: 2.5px solid black;
       }
 `;
-
-// const DesktopPageLinks = styled.span`
-//   * {
-//     padding: 10px;
-//     margin: 10px;
-//   }
-//   @media screen and (max-width: 670px) {
-//         display:none;
-//   }
-// `;
-
 
 /* COMPONENT */
 function Navbar({ title }: Title) {
@@ -83,9 +56,8 @@ function Navbar({ title }: Title) {
 
   /* RENDER */
   return (
-    <StyledNavbar data-testid="Navbar">
+    <StyledNavbar id="Navbar">
       <Title>{title}</Title>
-      {/* <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks> */}
       <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );

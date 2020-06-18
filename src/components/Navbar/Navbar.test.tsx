@@ -8,10 +8,12 @@ test('should have all the links and elements the Navbar has been given', () => {
   // The Navbar text and links.
   const title = 'Alastair M-E';
 
-  const { getByTestId } = render(<Navbar title={title} />);
+  render(<Navbar title={title} />);
 
-  const navbarLength = getByTestId('Navbar').children.length;
-  const firstElementsText = getByTestId('Navbar').children[0].textContent;
+  const virtualNavbar = document.getElementById('Navbar');
+
+  const navbarLength = virtualNavbar.children.length;
+  const firstElementsText = virtualNavbar.children[0].textContent;
   // all text elements and the hidden Sandwich Menu
   expect(navbarLength).toStrictEqual(2);
   expect(firstElementsText).toStrictEqual(title);
