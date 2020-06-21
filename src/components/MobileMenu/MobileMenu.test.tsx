@@ -24,14 +24,14 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
   // wait that check.
   // when the SideMenu is queried for again, should return nothing.
 
-  const { container, getByTestId } = render(<MobileMenu SideMenuNav />);
+  const { container } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
   expect(container.children.length).toBe(1);
 
-  const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
-  expect(doesSideMenuExist()).toBeUndefined();
+  const doesSideMenuExist = () => document.getElementById('SideMenu');
+  expect(doesSideMenuExist()).toBeNull();
 
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuExist()).toBeTruthy();
@@ -42,7 +42,7 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
   });
   expect(setTimeout).toHaveBeenCalledTimes(3);
 
-  expect(doesSideMenuExist()).toBeUndefined();
+  expect(doesSideMenuExist()).toBeNull();
 });
 
 
@@ -63,16 +63,16 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   // wait that check.
   // Therefore, they should both return undefined for the same reason.
 
-  const { container, getByTestId } = render(<MobileMenu SideMenuNav />);
+  const { container } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
 
-  const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
-  const doesCloseMenuButtonExist = () => document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
+  const doesSideMenuExist = () => document.getElementById('SideMenu');
+  const doesCloseMenuButtonExist = () => document.getElementById('CloseMenuButton');
 
-  expect(doesSideMenuExist()).toBeUndefined();
-  expect(doesCloseMenuButtonExist()).toBeUndefined();
+  expect(doesSideMenuExist()).toBeNull();
+  expect(doesCloseMenuButtonExist()).toBeNull();
 
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuExist()).toBeTruthy();
@@ -80,7 +80,7 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
 
   expect(setTimeout).toHaveBeenCalledTimes(1);
 
-  const virtualCloseMenuButton = document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
+  const virtualCloseMenuButton = document.getElementById('CloseMenuButton');
   fireEvent.click(virtualCloseMenuButton);
 
   act(() => {
@@ -88,8 +88,8 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
     expect(setTimeout).toHaveBeenCalledTimes(3);
   });
 
-  expect(doesSideMenuExist()).toBeUndefined();
-  expect(doesCloseMenuButtonExist()).toBeUndefined();
+  expect(doesSideMenuExist()).toBeNull();
+  expect(doesCloseMenuButtonExist()).toBeNull();
 });
 
 test('The MobileMenu should return a SideMenu which contains menu items whcih the MobileMenu was passed down and only available on the actived SideMenu', () => {
@@ -120,27 +120,27 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
       <a href="portfolio">portfolio</a>
     </>
   );
-  const { container, getByTestId } = render(
+  const { container } = render(
     <MobileMenu SideMenuNav={ListOfPageLinks} />,
   );
   container.setAttribute('id', 'root');
-  const doesSideMenuNavExist = () => document.querySelectorAll('[data-testid="SideMenuNav"]')[0];
+  const doesSideMenuNavExist = () => document.getElementById('SideMenuNav');
 
-  expect(doesSideMenuNavExist()).toBeUndefined();
+  expect(doesSideMenuNavExist()).toBeNull();
 
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuNavExist()).toBeTruthy();
 
-  const SideMenuNavChildren = document.querySelectorAll('[data-testid="SideMenuNav"]')[0].children;
+  const SideMenuNavChildren = document.getElementById('SideMenuNav').children;
   const virtualSideMenuPageLinks = render(ListOfPageLinks).container.children;
 
   expect(SideMenuNavChildren).toStrictEqual(virtualSideMenuPageLinks);
 
   expect(setTimeout).toHaveBeenCalledTimes(1);
 
-  const virtualCloseMenuButton = getByTestId('CloseMenuButton');
+  const virtualCloseMenuButton = document.getElementById('CloseMenuButton');
 
   fireEvent.click(virtualCloseMenuButton);
   act(() => {
@@ -148,14 +148,15 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
     expect(setTimeout).toHaveBeenCalledTimes(3);
   });
 
-  expect(doesSideMenuNavExist()).toBeUndefined();
+  expect(doesSideMenuNavExist()).toBeNull();
 });
 
 test('The background of the content is darkened when the Sandwich menu is clicked and toggle off when click again', () => {
-  const { container, getByTestId } = render(<MobileMenu SideMenuNav />);
+  const { container } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
 
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
+  const virtualCloseMenuButton = () => document.getElementById('CloseMenuButton');
   const doesSideMenuDarkenBackgroundExist = () => document.getElementById('SideMenuDarkenBackground');
 
   expect(doesSideMenuDarkenBackgroundExist()).toBeNull();
@@ -164,7 +165,7 @@ test('The background of the content is darkened when the Sandwich menu is clicke
 
   expect(doesSideMenuDarkenBackgroundExist()).toBeTruthy();
 
-  fireEvent.click(virtualMobileMenu);
+  fireEvent.click(virtualCloseMenuButton());
   act(() => {
     jest.advanceTimersByTime(500);
     expect(setTimeout).toHaveBeenCalledTimes(3);

@@ -2,11 +2,15 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { MobileMenu } from '../index';
+import { NightMode, MobileMenu } from '../index';
+
+const detailColour = (props: any) => props.theme.detailColour;
+const backgroundColour = (props: any) => props.theme.backgroundColour;
 
 /* INTERFACE */
-interface Title {
+interface NavbarProps {
   title: string;
+  NightModeHook: [boolean, any];
 }
 
 const StyledNavbar = styled.div`
@@ -14,37 +18,43 @@ const StyledNavbar = styled.div`
     grid-column:1/13;
     grid-row:1/3;
     align-items:center;
-    border-bottom: 5px solid black;
-    background:white;
-    color: black;
+    border-bottom: 5px solid ${(props) => detailColour(props)};
+    background:${(props) => backgroundColour(props)};
+    color: ${(props) => detailColour(props)};
+    justify-content: flex-end;
+
+    svg {
+      fill: ${(props) => detailColour(props)};
+    }
 `;
 
 const Title = styled.a`
   font-family: Arial, Helvetica, sans-serif;
   padding: 10px;
-  margin: 10px 10px 10px auto;
-  flex:0.55;
+  margin: 10px;
+  flex:0.52;
+  letter-spacing:2.5;
   text-transform: uppercase;
   justify-self:center;
   align-items:center;
-  font-size:2em;
-  @media screen and (max-width: 670px) {
-    font-size: 1.1em;
+  font-size:1.1em;
+  @media screen and (max-width: 600px) {
+    flex:0.57;
   }
 `;
 
 const PageLink = styled.a`
     text-decoration: none;
-    color: black;
+    color: ${(props) => detailColour(props)};
     font-size:1.5em;
-    border-bottom: 2.5px solid white;
+    border-bottom: 2.5px solid ${(props) => backgroundColour(props)};
       :hover {
-        border-bottom: 2.5px solid black;
+        border-bottom: 2.5px solid ${(props) => detailColour(props)};
       }
 `;
 
 /* COMPONENT */
-function Navbar({ title }: Title) {
+function Navbar({ title, NightModeHook }: NavbarProps) {
   const ListOfNavLinks = () => (
     <>
       <PageLink href="/home">Home</PageLink>
@@ -58,6 +68,7 @@ function Navbar({ title }: Title) {
   return (
     <StyledNavbar id="Navbar">
       <Title>{title}</Title>
+      <NightMode NightModeHook={NightModeHook} />
       <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );
