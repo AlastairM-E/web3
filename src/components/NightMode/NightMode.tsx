@@ -30,15 +30,21 @@ const DarkModeIcon = (
 
 /* STYLES */
 const StyledNightModeToggle = styled.span`
-  width: 64px;
+  display:flex;
+  width: 80px;
   border: ${(props) => props.theme.detailColour} 2.5px solid;
+  border-radius:25%;
   padding: 5px;
   svg {
     z-index: 0;
   }
+  #LightModeIcon {
+    margin-right:auto;
+  }
   #DarkModeIcon {
     fill: white;
     background: black;
+    margin-left:auto;
   }
 `;
 
@@ -49,8 +55,9 @@ const StyledToggleCover = styled.span`
   border:2.5px;
   position:absolute;
   background:${(props) => props.theme.detailColour};
-  margin-left:32px;
-  z-index:2;
+  margin-left:${(props) => (props.isNightModeOn ? '0px' : '48px')};
+  /* margin-right:${(props) => (props.isNightModeOn ? '40px' : '0px')}; */
+  z-index:1;
 `;
 
 /* COMPONENT */
@@ -60,7 +67,10 @@ function NightMode({ NightModeHook }: NightModeProps) {
   /* RENDER */
   return (
     <StyledNightModeToggle>
-      <StyledToggleCover onClick={() => setIsNightModeOn(!isNightModeOn)} />
+      <StyledToggleCover
+        onClick={() => setIsNightModeOn(!isNightModeOn)}
+        isNightModeOn={isNightModeOn}
+      />
       {LightModeIcon}
       {DarkModeIcon}
     </StyledNightModeToggle>
