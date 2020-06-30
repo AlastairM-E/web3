@@ -33,7 +33,7 @@ const StyledSideMenuDarkenBackground = styled.div`
   transition:2s;
 `;
 
-const StyledSandwichMenu = styled.span`
+const StyledSandwichMenu = styled.a`
     padding: 10px;
     margin: 10px;
     cursor: pointer;
@@ -111,7 +111,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
             transition={transition}
             variants={sandwichMenuDividerVarients(isScreenWiderThan975px)}
           >
-            <StyledSandwichMenu onClick={toggleSideMenu} id="CloseMenuButton">{MobileMenuIcon}</StyledSandwichMenu>
+            <StyledSandwichMenu onClick={toggleSideMenu} id="CloseMenuButton" href="#">{MobileMenuIcon}</StyledSandwichMenu>
           </StyledSandwichMenuDivider>
           <StyledSideMenu
             initial={isSandwichMenuClicked ? 'InitSideMenuIn' : 'InitSideMenuOut'}
@@ -139,6 +139,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
         id="SandwichMenu"
         onClick={toggleSideMenu}
         isSandwichMenuClicked={isSandwichMenuClicked}
+        href="#"
       >
         {MobileMenuIcon}
       </StyledSandwichMenu>

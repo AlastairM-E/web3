@@ -48,7 +48,7 @@ const StyledNightModeToggle = styled.span`
   }
 `;
 
-const StyledToggleCover = styled.span`
+const StyledToggleCover = styled.a`
   border: ${(props) => props.theme.backgroundColour} 2.5px solid;
   width: 32px;
   height: 32px;
@@ -70,6 +70,7 @@ function NightMode({ NightModeHook }: NightModeProps) {
       <StyledToggleCover
         onClick={() => setIsNightModeOn(!isNightModeOn)}
         isNightModeOn={isNightModeOn}
+        href="#"
       />
       {LightModeIcon}
       {DarkModeIcon}

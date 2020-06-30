@@ -8,7 +8,8 @@ const common = require('./webpack.common');
 
 module.exports = webpackMerge(common, {
   mode: 'production',
-  output: { filename: '[name].[contentHash].bundle.js', path: path.resolve(__dirname, '../dist') },
+  entry: { main: './dist/index.js' },
+  output: { filename: '[name].[contentHash].bundle.js', path: path.resolve(__dirname, '../build') },
   optimization: {
     minimizer: [
       new TerserWebpackPlugin(),
@@ -21,7 +22,7 @@ module.exports = webpackMerge(common, {
 
   module: {
     rules: [
-      { test: /\.scss$/, use: [MiniCSSExtractPlugin.loader, 'css-loader', 'sass-loader'] },
+      { test: /\.(css)$/, use: [MiniCSSExtractPlugin.loader, 'css-loader'] },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
