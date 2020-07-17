@@ -2,6 +2,22 @@ This folder is for all feature which I do not plan to currently use.
 
 This is the code which was used in the external files at the git branch w3v0.3:
 
+--> App.css :
+
+/*
+    #LightModeIcon {
+    fill:white;
+    background: black;
+    z-index:10;
+    height: 98;
+    width:98;
+    }
+    #DarkModeIcon {
+    fill: black;
+    margin-left:auto;
+    }
+*/
+
 --> App.tsx :
 
 // NIGHTMODE
