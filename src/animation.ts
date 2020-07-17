@@ -5,7 +5,7 @@ const sandwichMenuDividerVarients = (isScreenWiderThan975px: boolean) => ({
     position: 'absolute',
     top: '-0.725%',
     right: '-35%',
-    height: '16.666666666%',
+    height: '115px',
     width: '33.33333333333%',
   },
 
@@ -14,7 +14,7 @@ const sandwichMenuDividerVarients = (isScreenWiderThan975px: boolean) => ({
     position: 'absolute',
     top: '-0.725%',
     right: '0%',
-    height: '16.666666666%',
+    height: '115px',
     width: '33.33333333333%',
   },
   InitDividerOut: {
@@ -22,7 +22,7 @@ const sandwichMenuDividerVarients = (isScreenWiderThan975px: boolean) => ({
     position: 'absolute',
     top: '-0.725%',
     right: '0%',
-    height: '16.666666666%',
+    height: '115px',
     width: '33.33333333333%',
   },
 
@@ -31,7 +31,7 @@ const sandwichMenuDividerVarients = (isScreenWiderThan975px: boolean) => ({
     position: 'absolute',
     top: '-0.725%',
     right: '-35%',
-    height: '16.666666666%',
+    height: '115px',
     width: '33.33333333333%',
   },
 });
@@ -39,32 +39,32 @@ const sandwichMenuDividerVarients = (isScreenWiderThan975px: boolean) => ({
 const sideMenuVariants = (isScreenWiderThan975px: boolean) => ({
   InitSideMenuIn: {
     position: 'absolute',
-    top: '16.666666666%',
+    top: '16.61%',
     right: isScreenWiderThan975px ? '-35%' : '-100%',
-    height: '83.33333333333%',
+    height: '84.33333333333%',
     width: isScreenWiderThan975px ? '33.33333333333%' : '100%',
   },
 
   slideSideMenuIn: {
     position: 'absolute',
-    top: '16.666666666%',
+    top: '16.61%',
     right: '0%',
-    height: '83.33333333333%',
+    height: '84.33333333333%',
     width: isScreenWiderThan975px ? '33.33333333333%' : '100%',
   },
   InitSideMenuOut: {
     position: 'absolute',
-    top: '16.666666666%',
+    top: '16.61%',
     right: '0%',
-    height: '83.33333333333%',
+    height: '84.33333333333%',
     width: isScreenWiderThan975px ? '33.33333333333%' : '100%',
   },
 
   slideSideMenuOut: {
     position: 'absolute',
-    top: '16.666666666%',
+    top: '16.61%',
     right: isScreenWiderThan975px ? '-35%' : '-100%',
-    height: '83.33333333333%',
+    height: '84.33333333333%',
     width: isScreenWiderThan975px ? '33.33333333333%' : '100%',
   },
 });

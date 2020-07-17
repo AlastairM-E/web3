@@ -16,7 +16,7 @@ interface NavbarProps {
 /* STYLES */
 const StyledNavbar = styled.div`
     grid-column:1/13;
-    grid-row:1/3;
+    grid-row:1/2;
 
     display:flex;
     align-items:center;

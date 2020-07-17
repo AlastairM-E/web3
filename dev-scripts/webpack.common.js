@@ -12,7 +12,7 @@ module.exports = {
     rules: [
       { test: /\.html$/, use: ['html-loader'] },
       {
-        test: /\.(svg|png|jpg|gif|pdf)$/,
+        test: /\.(svg|png|jpg|gif|pdf|json)$/,
         use: { loader: 'file-loader', options: { name: '[name].[hash].[ext]', outputPath: 'assets' } },
       },
       { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ },

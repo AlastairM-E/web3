@@ -27,7 +27,8 @@ const StyledSkipContent = styled.a`
 
   &:focus {
     grid-column:1/5;
-    grid-row:1/2;
+    grid-row:1/1;
+    height:75px;
 
     position:initial;
 
@@ -49,7 +50,7 @@ const StyledSkipContent = styled.a`
 
 const StyledScrollBody = styled.div`
   grid-column: 1/13;
-  grid-row:3/13;
+  grid-row:2/13;
 `;
 
 /* COMPONENT */
