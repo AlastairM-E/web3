@@ -1,5 +1,5 @@
 /* IMPORTS */
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -12,6 +12,10 @@ import {
 /* ICONS */
 const MobileMenuIcon = (
   <svg height="48" viewBox="0 0 24 24" width="48">
+    <title>
+      Mobile Menu, press enter to toggle the menu open/close,
+      press tab to access the content of the menu.
+    </title>
     <path d="M0 0h24v24H0z" fill="none" />
     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
   </svg>
@@ -27,54 +31,67 @@ interface mobileMenuProperties {
 
 /* STYLES */
 const StyledSideMenuDarkenBackground = styled.div`
-  background: rgba(0,0,0,0.5);
   grid-column: 1/13;
   grid-row:1/13;
+
+  background: rgba(0,0,0,0.5);
+  
   transition:2s;
 `;
 
 const StyledSandwichMenu = styled.a`
-    padding: 10px;
-    margin: 10px;
-    cursor: pointer;
-    border: 2.5px solid ${(props) => backgroundColour(props)};
-    display:inline-block;
-    :active {
-      border: 2.5px solid ${(props) => detailColour(props)};
-    }
+  display:inline-block;
+
+  border: 2.5px solid ${(props) => backgroundColour(props)};
+  padding: 10px;
+  margin: 10px;
+
+  cursor: pointer;
+    
+  :active {
+    border: 2.5px solid ${(props) => detailColour(props)};
+  }
 `;
 
 const StyledSideMenu = styled(motion.span)`
-    display:inline-block;
-    background: ${(props) => backgroundColour(props)};
-    grid-row: 3/13;
-    grid-column: 9/13;
-    border-left: 5px solid ${(props) => detailColour(props)};
-    z-index: 1;
+  grid-row: 3/13;
+  grid-column: 9/13;
+
+  display:inline-block;
+
+  border-left: 5px solid ${(props) => detailColour(props)};
+
+  background: ${(props) => backgroundColour(props)};
+  
+  z-index: 1;
 `;
 const StyledSideMenuNav = styled.ul`
   * {
     display:inline-block;
+
     margin: 10px 1000px 10px 10px;
   }
 `;
 
 const StyledSandwichMenuDivider = styled(motion.span)`
-    display: flex;
-    justify-content: flex-end;
-    align-items:center;
-    border-left: 5px solid ${(props) => detailColour(props)};
-    border-bottom: 5px solid ${(props) => detailColour(props)};
-    grid-column: 9/13;
-    grid-row: 1/3;
-    background: ${(props) => backgroundColour(props)};
-    z-index:2;
+  grid-column: 9/13;
+  grid-row: 1/3;
 
-    svg {
-      fill: ${(props) => detailColour(props)};
-    }
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+
+  border-left: 5px solid ${(props) => detailColour(props)};
+  border-bottom: 5px solid ${(props) => detailColour(props)};
+    
+  background: ${(props) => backgroundColour(props)};
+
+  z-index:2;
+
+  svg {
+    fill: ${(props) => detailColour(props)};
+  }
 `;
-
 
 /* COMPONENT */
 function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
@@ -139,7 +156,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
         id="SandwichMenu"
         onClick={toggleSideMenu}
         isSandwichMenuClicked={isSandwichMenuClicked}
-        href="#"
+        href="#menu"
       >
         {MobileMenuIcon}
       </StyledSandwichMenu>

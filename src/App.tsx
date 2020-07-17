@@ -1,15 +1,14 @@
 /* IMPORTS */
 import React from 'react';
 
-// Components
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Navbar } from './components/index';
 
+/* STYLES */
 const theme = {
   backgroundColour: 'white',
   detailColour: 'black',
 };
-
 
 const AppBackground = createGlobalStyle`
   body {
@@ -19,33 +18,50 @@ const AppBackground = createGlobalStyle`
 `;
 
 const StyledSkipContent = styled.a`
+  grid-column:0/0;
+  grid-row:0/0;
+
+  position:absolute;
+
   opacity:0;
+
   &:focus {
-    opacity:1;
-    background: ${(props) => props.theme.backgroundColour};
-    color: ${(props) => props.theme.detailColour};  
-    z-index:10;
     grid-column:1/5;
     grid-row:1/2;
-    text-decoration: none;
-    font-size:1.5em;
+
+    position:initial;
+
     display:flex;
     align-items:center;
+
     padding-left:15px;
+    
+    background: ${(props) => props.theme.backgroundColour};
+    opacity:1;
+    
+    color: ${(props) => props.theme.detailColour}; 
+    font-size:1.5em;
     text-decoration: underline;
+
+    z-index:10;
   }
+`;
+
+const StyledScrollBody = styled.div`
+  grid-column: 1/13;
+  grid-row:3/13;
 `;
 
 /* COMPONENT */
 function App() {
   /* RENDER */
-  // - Reducer the App background with a data-testid of "App".
-  // - Returns a Navbar with the title of Alastair M-E
+
   return (
     <ThemeProvider theme={theme}>
       <AppBackground />
       <StyledSkipContent href="#main">Skip to Content</StyledSkipContent>
       <Navbar title="Alastair M-E" />
+      <StyledScrollBody />
     </ThemeProvider>
   );
 }

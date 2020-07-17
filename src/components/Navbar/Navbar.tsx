@@ -4,6 +4,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { MobileMenu } from '../index';
 
+/* HELPERS */
 const detailColour = (props: any) => props.theme.detailColour;
 const backgroundColour = (props: any) => props.theme.backgroundColour;
 
@@ -12,15 +13,20 @@ interface NavbarProps {
   title: string;
 }
 
+/* STYLES */
 const StyledNavbar = styled.div`
-    display:flex;
     grid-column:1/13;
     grid-row:1/3;
+
+    display:flex;
     align-items:center;
-    border-bottom: 5px solid ${(props) => detailColour(props)};
-    background:${(props) => backgroundColour(props)};
-    color: ${(props) => detailColour(props)};
     justify-content: flex-end;
+
+    border-bottom: 5px solid ${(props) => detailColour(props)};
+
+    background:${(props) => backgroundColour(props)};
+
+    color: ${(props) => detailColour(props)};
 
     svg {
       fill: ${(props) => detailColour(props)};
@@ -28,28 +34,35 @@ const StyledNavbar = styled.div`
 `;
 
 const Title = styled.a`
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 10px;
-  margin: 10px;
+
+  display:flex;
   flex:0.52;
-  letter-spacing:2.5;
-  text-transform: uppercase;
   justify-self:center;
   align-items:center;
+
+  padding: 10px;
+  margin: 10px;
+  
+  font-family: Arial, Helvetica, sans-serif;
   font-size:1.1em;
+  letter-spacing:2.5px;
+  text-transform: uppercase;
+  
   @media screen and (max-width: 600px) {
     flex:0.57;
   }
 `;
 
 const PageLink = styled.a`
-    text-decoration: none;
+    border-bottom: 2.5px solid ${(props) => backgroundColour(props)};
+
     color: ${(props) => detailColour(props)};
     font-size:1.5em;
-    border-bottom: 2.5px solid ${(props) => backgroundColour(props)};
-      :hover {
-        border-bottom: 2.5px solid ${(props) => detailColour(props)};
-      }
+    text-decoration: none;
+    
+    :hover {
+      border-bottom: 2.5px solid ${(props) => detailColour(props)};
+    }
 `;
 
 /* COMPONENT */
@@ -67,7 +80,6 @@ function Navbar({ title }: NavbarProps) {
   return (
     <StyledNavbar id="Navbar">
       <Title>{title}</Title>
-
       <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );
