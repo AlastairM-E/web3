@@ -10,7 +10,6 @@ const backgroundColour = (props: any) => props.theme.backgroundColour;
 /* INTERFACE */
 interface NavbarProps {
   title: string;
-  NightModeHook: [boolean, any];
 }
 
 const StyledNavbar = styled.div`

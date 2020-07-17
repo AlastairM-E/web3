@@ -25,14 +25,14 @@ const StyledSkipContent = styled.a`
     background: ${(props) => props.theme.backgroundColour};
     color: ${(props) => props.theme.detailColour};  
     z-index:10;
-    grid-column:1/13;
+    grid-column:1/5;
     grid-row:1/2;
     text-decoration: none;
     font-size:1.5em;
-    border-bottom: 2.5px solid ${(props) => props.theme.backgroundColour};
-      :hover {
-        border-bottom: 2.5px solid ${(props) => props.theme.backgroundColour};
-      }
+    display:flex;
+    align-items:center;
+    padding-left:15px;
+    text-decoration: underline;
   }
 `;
 

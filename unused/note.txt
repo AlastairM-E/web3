@@ -41,5 +41,6 @@ This is the code which was used in the external files at the git branch w3v0.3:
 --> components/Navbar/Navbar.tsx
 
 /* NightMode, */
+// NightModeHook: [boolean, any];
 /* NightModeHook */ 
 // <NightMode NightModeHook={NightModeHook} />
