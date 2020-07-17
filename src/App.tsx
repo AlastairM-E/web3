@@ -1,6 +1,5 @@
 /* IMPORTS */
-import React, { useState } from 'react';
-
+import React from 'react';
 
 // Components
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
@@ -11,12 +10,6 @@ const theme = {
   detailColour: 'black',
 };
 
-function inverted({ backgroundColour, detailColour }) {
-  return ({
-    backgroundColour: detailColour,
-    detailColour: backgroundColour,
-  });
-}
 
 const AppBackground = createGlobalStyle`
   body {
@@ -43,28 +36,16 @@ const StyledSkipContent = styled.a`
   }
 `;
 
-const StyledMain = styled.a`
-  grid-column:1/13;
-  grid-row:4/13;
-`;
-
 /* COMPONENT */
 function App() {
-  const NightModeHook = useState(false);
-  const [isNightModeOn] = NightModeHook;
   /* RENDER */
   // - Reducer the App background with a data-testid of "App".
   // - Returns a Navbar with the title of Alastair M-E
   return (
-    <ThemeProvider theme={isNightModeOn ? inverted(theme) : theme}>
+    <ThemeProvider theme={theme}>
       <AppBackground />
       <StyledSkipContent href="#main">Skip to Content</StyledSkipContent>
-      <Navbar title="Alastair M-E" NightModeHook={NightModeHook} />
-      <StyledMain id="main" href="#">
-        This is content
-        <p><a href="#">Link to new part of the site</a></p>
-      </StyledMain>
-
+      <Navbar title="Alastair M-E" />
     </ThemeProvider>
   );
 }

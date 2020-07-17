@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-import { NightMode, MobileMenu } from '../index';
+import { MobileMenu } from '../index';
 
 const detailColour = (props: any) => props.theme.detailColour;
 const backgroundColour = (props: any) => props.theme.backgroundColour;
@@ -54,7 +54,7 @@ const PageLink = styled.a`
 `;
 
 /* COMPONENT */
-function Navbar({ title, NightModeHook }: NavbarProps) {
+function Navbar({ title }: NavbarProps) {
   const ListOfNavLinks = () => (
     <>
       <PageLink href="/home">Home</PageLink>
@@ -68,7 +68,7 @@ function Navbar({ title, NightModeHook }: NavbarProps) {
   return (
     <StyledNavbar id="Navbar">
       <Title>{title}</Title>
-      <NightMode NightModeHook={NightModeHook} />
+
       <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );
