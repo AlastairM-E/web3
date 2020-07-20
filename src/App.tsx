@@ -2,7 +2,7 @@
 import React from 'react';
 
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { Navbar } from './components/index';
+import { Navbar, Intro } from './components/index';
 
 /* STYLES */
 const theme = {
@@ -51,6 +51,10 @@ const StyledSkipContent = styled.a`
 const StyledScrollBody = styled.div`
   grid-column: 1/13;
   grid-row:2/13;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
 `;
 
 /* COMPONENT */
@@ -62,7 +66,7 @@ function App() {
       <AppBackground />
       <StyledSkipContent href="#main">Skip to Content</StyledSkipContent>
       <Navbar title="Alastair M-E" />
-      <StyledScrollBody />
+      <StyledScrollBody><Intro /></StyledScrollBody>
     </ThemeProvider>
   );
 }

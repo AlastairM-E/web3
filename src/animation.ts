@@ -69,11 +69,7 @@ const sideMenuVariants = (isScreenWiderThan975px: boolean) => ({
   },
 });
 
-/* SHORTING FUNCTION */
-const transition = '0.5s ease-in';
-
 export {
   sideMenuVariants,
   sandwichMenuDividerVarients,
-  transition,
 };

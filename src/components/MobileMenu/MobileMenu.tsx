@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import {
-  transition,
   sandwichMenuDividerVarients,
   sideMenuVariants,
 } from '../../animation';
@@ -125,7 +124,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
           <StyledSandwichMenuDivider
             initial={isSandwichMenuClicked ? 'InitDividerIn' : 'InitDividerOut'}
             animate={isSandwichMenuClicked ? 'slideDividerIn' : 'slideDividerOut'}
-            transition={transition}
+            transition="0.5s ease-in"
             variants={sandwichMenuDividerVarients(isScreenWiderThan975px)}
           >
             <StyledSandwichMenu onClick={toggleSideMenu} id="CloseMenuButton" href="#">{MobileMenuIcon}</StyledSandwichMenu>
@@ -133,7 +132,7 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
           <StyledSideMenu
             initial={isSandwichMenuClicked ? 'InitSideMenuIn' : 'InitSideMenuOut'}
             animate={isSandwichMenuClicked ? 'slideSideMenuIn' : 'slideSideMenuOut'}
-            transition={transition}
+            transition="0.5s ease-in"
             variants={sideMenuVariants(isScreenWiderThan975px)}
             id="SideMenu"
           >
