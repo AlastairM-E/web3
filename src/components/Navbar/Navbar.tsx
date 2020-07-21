@@ -4,94 +4,83 @@ import React from 'react';
 import styled from 'styled-components';
 // import { MobileMenu } from '../index';
 
+/* HELPERS */
+const detailColour = (props: any) => props.theme.detailColour;
+const backgroundColour = (props: any) => props.theme.backgroundColour;
+
 /* INTERFACE */
-interface Title {
+interface NavbarProps {
   title: string;
 }
 
-// styled from styled-components
-
-/* Navbar styles: */
-// - Display the Navbar in css flexbox.
-// - It takes up about a quarter of page in height and the entire width of the page.
-// - It is aligns the items in the middle of Navbar, between the top and the bottom.
+/* STYLES */
 const StyledNavbar = styled.div`
-    display:flex;
     grid-column:1/13;
-    grid-row:1/3;
+    grid-row:1/2;
+
+    display:flex;
     align-items:center;
-    border-bottom: 5px solid black;
-    background:lightgreen;
-    color: black;
-`;
+    justify-content: flex-end;
 
-/* Navbar Title styles: */
-// - Give the title padding of 10px and a margin of 10px.
-// - Give the property of flex 1, which means it will be on the left hand side and
-//   all other element will be on the right-hand side, with considerable distance between
-//   the two.
-const Title = styled.h2`
-    padding: 10px;
-    margin: 10px;
-    flex:1;
-`;
+    border-bottom: 5px solid ${(props) => detailColour(props)};
 
-/* PageLink styles: */
-// - Has a padding of 10px and a margin of 10pxs.
-// - Will be on the end due to the Title property of flex 1.
-// - Has no underline as it is an A tag, which has a default underline.
-// - Has a color of white to make sure that the a tage does default the colors of blue/red/purple
-//   for when it has been unclicked/is current clicked/and has been clicked.
-// - On hover, it will produce a bottom border of 2.5px, solid and white,
-//   which is a bit like an underline, but with more padding.
-// - on the medium of screens and when the page ahs a max-width of 670px,
-//   the a links will disappear.
-const PageLink = styled.a`
-    text-decoration: none;
-    color: black;
-    font-size:1.5em;
-    border-bottom: 2.5px solid lightgreen;
-      :hover {
-        border-bottom: 2.5px solid black;
-      }
+    background:${(props) => backgroundColour(props)};
 
-    @media screen and (max-width: 670px) {
-      border-bottom: 2.5px solid black;
-      :hover {
-        border-bottom: 2.5px solid lightgreen;
-      }
+    color: ${(props) => detailColour(props)};
+
+    svg {
+      fill: ${(props) => detailColour(props)};
     }
 `;
 
-const DesktopPageLinks = styled.span`
-  * {
-    padding: 10px;
-    margin: 10px;
-  }
-  @media screen and (max-width: 670px) {
-        display:none;
+const Title = styled.a`
+
+  display:flex;
+  flex:0.52;
+  justify-self:center;
+  align-items:center;
+
+  padding: 10px;
+  margin: 10px;
+  
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:1.1em;
+  letter-spacing:2.5px;
+  text-transform: uppercase;
+  
+  @media screen and (max-width: 600px) {
+    flex:0.57;
   }
 `;
 
+const PageLink = styled.a`
+    border-bottom: 2.5px solid ${(props) => backgroundColour(props)};
+
+    color: ${(props) => detailColour(props)};
+    font-size:1.5em;
+    text-decoration: none;
+    
+    :hover {
+      border-bottom: 2.5px solid ${(props) => detailColour(props)};
+    }
+`;
 
 /* COMPONENT */
-function Navbar({ title }: Title) {
-  // const ListOfNavLinks = () => (
-  //   // <>
-  //   //   <PageLink href="/home">Home</PageLink>
-  //   //   <PageLink href="/about">About</PageLink>
-  //   //   <PageLink href="/contact">Contact</PageLink>
-  //   //   <PageLink href="/portfolio">Portfolio</PageLink>
-  //   // </>
-  //   <span />
-  // );
+function Navbar({ title }: NavbarProps) {
+  const ListOfNavLinks = () => (
+    <>
+      <PageLink href="/">Home</PageLink>
+      <PageLink href="/about">About</PageLink>
+      <PageLink href="/contact">Contact</PageLink>
+      <PageLink href="/portfolio">Portfolio</PageLink>
+    </>
+  );
 
   /* RENDER */
   return (
-    <StyledNavbar data-testid="Navbar">
+    <StyledNavbar id="Navbar">
       <Title>{title}</Title>
-      {/* <DesktopPageLinks><ListOfNavLinks /></DesktopPageLinks>
-      <MobileMenu SideMenuNav={<ListOfNavLinks />} /> */}
+      <MobileMenu SideMenuNav={<ListOfNavLinks />} />
     </StyledNavbar>
   );
 }

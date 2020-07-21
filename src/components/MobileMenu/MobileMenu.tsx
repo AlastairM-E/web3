@@ -1,10 +1,35 @@
 /* IMPORTS */
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import {
+<<<<<<< HEAD
   slideSideMenu, toggleSandwichMenuAnimation, slideMenuButtonDividerIn, smbdaX,
+=======
+  sandwichMenuDividerVarients,
+  sideMenuVariants,
+>>>>>>> w3v0.5
 } from '../../animation';
+
+/* ICONS */
+const MobileMenuIcon = (
+  <svg
+    height="48"
+    viewBox="0 0 24 24"
+    width="48"
+  >
+    <title>
+      Mobile Menu, press enter to toggle the menu open/close,
+      press tab to access the content of the menu.
+    </title>
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+  </svg>
+);
+
+const detailColour = (props) => props.theme.detailColour;
+const backgroundColour = (props) => props.theme.backgroundColour;
 
 /* INTERFACES */
 interface mobileMenuProperties {
@@ -12,89 +37,114 @@ interface mobileMenuProperties {
 }
 
 /* STYLES */
-const StyledSandwichMenu = styled.span`
-    display: none;
-    padding: 10px 10px 20px 10px;
-    margin: 10px 25px;
-    font-size:2.5em;
-    cursor: pointer;
-    letter-spacing:-2px;
-    -webkit-transform: rotate(-90deg);
-    border: 2.5px solid lightgreen;
-    @media screen and (max-width: 670px) {
-        display: ${toggleSandwichMenuAnimation};
-        :hover {
-            border: 2.5px solid black;
-        }
-    }
+const StyledSideMenuDarkenBackground = styled.div`
+  grid-column: 1/13;
+  grid-row:1/13;
+
+  background: rgba(0,0,0,0.5);
+  
+  transition:2s;
 `;
 
-const StyledSideMenu = styled.span`
-  display:none;
-  @media screen and (max-width: 670px) {
-    display:inline-block;
-    background: white;
-    grid-row: 3/13;
-    grid-column: 9/13;
-    border-left: 5px solid black;
-    animation:${slideSideMenu} 0.5s ease-in;
+const StyledSandwichMenu = styled.a`
+  display:inline-block;
+
+  border: 2.5px solid ${(props) => backgroundColour(props)};
+  padding: 10px;
+  margin: 10px;
+
+  cursor: pointer;
+    
+  :active {
+    border: 2.5px solid ${(props) => detailColour(props)};
   }
+`;
+
+const StyledSideMenu = styled(motion.span)`
+  grid-row: 3/13;
+  grid-column: 9/13;
+
+  display:inline-block;
+
+  border-left: 5px solid ${(props) => detailColour(props)};
+
+  background: ${(props) => backgroundColour(props)};
+  
+  z-index: 1;
 `;
 const StyledSideMenuNav = styled.ul`
   * {
     display:inline-block;
-    margin: 10px 100px 10px 10px;
+
+    margin: 10px 1000px 10px 10px;
   }
 `;
 
-const StyledMenuButtonDivider = styled.span`
-  display: none;
-  @media screen and (max-width: 670px) {
-    display: flex;
-    justify-content: flex-end;
-    border-left: 5px solid black;
-    border-bottom: 5px solid black;
-    grid-column: 9/13;
-    grid-row: 1/3;
-    background: white;
-    /* animation: ${slideMenuButtonDividerIn} 0.5s ease-in; */
-    ${smbdaX}
+const StyledSandwichMenuDivider = styled(motion.span)`
+  grid-column: 9/13;
+  grid-row: 1/3;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+
+  border-left: 5px solid ${(props) => detailColour(props)};
+  border-bottom: 5px solid ${(props) => detailColour(props)};
+    
+  background: ${(props) => backgroundColour(props)};
+
+  z-index:2;
+
+  svg {
+    fill: ${(props) => detailColour(props)};
   }
 `;
-
-const StyledCloseMenuButton = styled.span`
-  height: 40px;
-  margin: 10px;
-  font-size:2.5em;
-  padding: 0px 10px 5px;
-  border: 2.5px solid black;
-  :hover {
-    border: 2.5px solid lightgreen;
-  }
-  color:black;
-  cursor: pointer;
-`;
-
 
 /* COMPONENT */
 function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
   /* HOOKS */
   // Create isSandwichMenuClicked & setIsSandwichMenuClicked useState (initial state will be false).
   const [isSandwichMenuClicked, setIsSandwichMenuClicked] = useState(false);
+  const [isScreenWiderThan975px, setIsScreenWiderThan975px] = useState(true);
 
+  useEffect(() => {
+    if (isSandwichMenuClicked === null) {
+      setTimeout(() => {
+        setIsSandwichMenuClicked(false);
+      }, 300);
+    }
+
+    if (window.innerWidth > 975) {
+      setIsScreenWiderThan975px(true);
+    } else {
+      setIsScreenWiderThan975px(false);
+    }
+  }, [isSandwichMenuClicked, window.innerWidth]);
   /* EVENT LISTENERS */
   // Create a toggleSideMenu function in order for the Side Menu to be toggled off and on.
-  const toggleSideMenu = () => setIsSandwichMenuClicked(!isSandwichMenuClicked);
+  const toggleSideMenu = () => setIsSandwichMenuClicked(isSandwichMenuClicked === true ? null : true);
 
   function SideMenu() {
-    return isSandwichMenuClicked
+    return isSandwichMenuClicked === true || isSandwichMenuClicked === null
       ? ReactDOM.createPortal(
         <>
-          <StyledMenuButtonDivider>
-            <StyledCloseMenuButton onClick={toggleSideMenu} data-testid="CloseMenuButton">X</StyledCloseMenuButton>
-          </StyledMenuButtonDivider>
-          <StyledSideMenu data-testid="SideMenu">
-            <StyledSideMenuNav data-testid="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
+          { isScreenWiderThan975px ? <StyledSideMenuDarkenBackground id="SideMenuDarkenBackground" /> : null }
+          <StyledSandwichMenuDivider
+            initial={isSandwichMenuClicked ? 'InitDividerIn' : 'InitDividerOut'}
+            animate={isSandwichMenuClicked ? 'slideDividerIn' : 'slideDividerOut'}
+            transition="0.5s ease-in"
+            variants={sandwichMenuDividerVarients(isScreenWiderThan975px)}
+          >
+            <StyledSandwichMenu onClick={toggleSideMenu} id="CloseMenuButton" href="#">{MobileMenuIcon}</StyledSandwichMenu>
+          </StyledSandwichMenuDivider>
+          <StyledSideMenu
+            initial={isSandwichMenuClicked ? 'InitSideMenuIn' : 'InitSideMenuOut'}
+            animate={isSandwichMenuClicked ? 'slideSideMenuIn' : 'slideSideMenuOut'}
+            transition="0.5s ease-in"
+            variants={sideMenuVariants(isScreenWiderThan975px)}
+            id="SideMenu"
+          >
+            <StyledSideMenuNav id="SideMenuNav">{SideMenuNav}</StyledSideMenuNav>
           </StyledSideMenu>
         </>,
         document.getElementById('root'),
@@ -110,11 +160,12 @@ function MobileMenu({ SideMenuNav }: mobileMenuProperties) {
   return (
     <>
       <StyledSandwichMenu
-        data-testid="SandwichMenu"
+        id="SandwichMenu"
         onClick={toggleSideMenu}
         isSandwichMenuClicked={isSandwichMenuClicked}
+        href="#menu"
       >
-        |||
+        {MobileMenuIcon}
       </StyledSandwichMenu>
       <SideMenu />
     </>

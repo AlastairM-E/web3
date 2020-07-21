@@ -1,7 +1,12 @@
 /* IMPORTS */
 import React, { Fragment } from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import MobileMenu from './MobileMenu';
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
 
 /* TESTS */
 test('Check that the MobileMenu makes a SideMenu only', () => {
@@ -15,22 +20,29 @@ test('Check that the MobileMenu makes a SideMenu only', () => {
   // Click on the MobileMenu Component --> this should create a SideMenu, therefore when the
   // SideMenu is queried for, it returns a truthy value.
   // Click on the MobileMenu Component again this should remove the SideMenu Component and therefore
+  // In the context of timers when the slideMenu is undeinfed, there should be a 0.5 second
+  // wait that check.
   // when the SideMenu is queried for again, should return nothing.
-  const { container, getByTestId } = render(<MobileMenu />);
+
+  const { container } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
   expect(container.children.length).toBe(1);
 
-  const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
-  expect(doesSideMenuExist()).toBeUndefined();
+  const doesSideMenuExist = () => document.getElementById('SideMenu');
+  expect(doesSideMenuExist()).toBeNull();
 
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuExist()).toBeTruthy();
+  expect(setTimeout).toHaveBeenCalledTimes(1);
+  act(() => {
+    fireEvent.click(virtualMobileMenu);
+    jest.advanceTimersByTime(500);
+  });
+  expect(setTimeout).toHaveBeenCalledTimes(3);
 
-  fireEvent.click(virtualMobileMenu);
-
-  expect(doesSideMenuExist()).toBeUndefined();
+  expect(doesSideMenuExist()).toBeNull();
 });
 
 
@@ -47,27 +59,37 @@ test('The MobileMenu should return a SideMenu which has a button which will clos
   // The CloseMenuButton and SideMenu should return truthy.
   // Then the CloseMenuButton should be clicked again.
   // This should mean that the ClsoeSideMenutButton and the SideMenu should both not exist.
+  // In the context of timers when the slideMenu is undeinfed, there should be a 0.5 second
+  // wait that check.
   // Therefore, they should both return undefined for the same reason.
-  const { container, getByTestId } = render(<MobileMenu />);
+
+  const { container } = render(<MobileMenu SideMenuNav />);
   container.setAttribute('id', 'root');
 
-  const doesSideMenuExist = () => document.querySelectorAll('[data-testid="SideMenu"]')[0];
-  const doesCloseMenuButtonExist = () => document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
+  const doesSideMenuExist = () => document.getElementById('SideMenu');
+  const doesCloseMenuButtonExist = () => document.getElementById('CloseMenuButton');
 
-  expect(doesSideMenuExist()).toBeUndefined();
-  expect(doesCloseMenuButtonExist()).toBeUndefined();
+  expect(doesSideMenuExist()).toBeNull();
+  expect(doesCloseMenuButtonExist()).toBeNull();
 
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuExist()).toBeTruthy();
   expect(doesCloseMenuButtonExist()).toBeTruthy();
 
-  const virtualCloseMenuButton = document.querySelectorAll('[data-testid="CloseMenuButton"]')[0];
+  expect(setTimeout).toHaveBeenCalledTimes(1);
+
+  const virtualCloseMenuButton = document.getElementById('CloseMenuButton');
   fireEvent.click(virtualCloseMenuButton);
 
-  expect(doesSideMenuExist()).toBeUndefined();
-  expect(doesCloseMenuButtonExist()).toBeUndefined();
+  act(() => {
+    jest.advanceTimersByTime(500);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+  });
+
+  expect(doesSideMenuExist()).toBeNull();
+  expect(doesCloseMenuButtonExist()).toBeNull();
 });
 
 test('The MobileMenu should return a SideMenu which contains menu items whcih the MobileMenu was passed down and only available on the actived SideMenu', () => {
@@ -86,8 +108,11 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
   // Get the containers children of the rendered page links.
   // Check that the children of SideMenuNav (aka the links passed into the MobileMenu) are equal to
   // the listOfPageLinks.
+  // In the context of timers when the slideMenu is undeinfed, there should be a 0.5 second
+  // wait that check.
   // Click the CloseMenuButton.
   // Check that the SideMenuNav does not exis, quering for the element should be undefined.
+
   const ListOfPageLinks = (
     <>
       <a href="about">about</a>
@@ -95,27 +120,56 @@ test('The MobileMenu should return a SideMenu which contains menu items whcih th
       <a href="portfolio">portfolio</a>
     </>
   );
-  const { container, getByTestId } = render(
-    <MobileMenu SideMenuNav={ListOfPageLinks}>|||</MobileMenu>,
+  const { container } = render(
+    <MobileMenu SideMenuNav={ListOfPageLinks} />,
   );
   container.setAttribute('id', 'root');
-  const doesSideMenuNavExist = () => document.querySelectorAll('[data-testid="SideMenuNav"]')[0];
+  const doesSideMenuNavExist = () => document.getElementById('SideMenuNav');
 
+  expect(doesSideMenuNavExist()).toBeNull();
 
-  expect(doesSideMenuNavExist()).toBeUndefined();
-
-  const virtualMobileMenu = getByTestId('SandwichMenu');
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
   fireEvent.click(virtualMobileMenu);
 
   expect(doesSideMenuNavExist()).toBeTruthy();
 
-  const SideMenuNavChildren = document.querySelectorAll('[data-testid="SideMenuNav"]')[0].children;
+  const SideMenuNavChildren = document.getElementById('SideMenuNav').children;
   const virtualSideMenuPageLinks = render(ListOfPageLinks).container.children;
 
   expect(SideMenuNavChildren).toStrictEqual(virtualSideMenuPageLinks);
 
-  const virtualCloseMenuButton = getByTestId('CloseMenuButton');
-  fireEvent.click(virtualCloseMenuButton);
+  expect(setTimeout).toHaveBeenCalledTimes(1);
 
-  expect(doesSideMenuNavExist()).toBeUndefined();
+  const virtualCloseMenuButton = document.getElementById('CloseMenuButton');
+
+  fireEvent.click(virtualCloseMenuButton);
+  act(() => {
+    jest.advanceTimersByTime(500);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+  });
+
+  expect(doesSideMenuNavExist()).toBeNull();
+});
+
+test('The background of the content is darkened when the Sandwich menu is clicked and toggle off when click again', () => {
+  const { container } = render(<MobileMenu SideMenuNav />);
+  container.setAttribute('id', 'root');
+
+  const virtualMobileMenu = document.getElementById('SandwichMenu');
+  const virtualCloseMenuButton = () => document.getElementById('CloseMenuButton');
+  const doesSideMenuDarkenBackgroundExist = () => document.getElementById('SideMenuDarkenBackground');
+
+  expect(doesSideMenuDarkenBackgroundExist()).toBeNull();
+
+  fireEvent.click(virtualMobileMenu);
+
+  expect(doesSideMenuDarkenBackgroundExist()).toBeTruthy();
+
+  fireEvent.click(virtualCloseMenuButton());
+  act(() => {
+    jest.advanceTimersByTime(500);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+  });
+
+  expect(doesSideMenuDarkenBackgroundExist()).toBeNull();
 });

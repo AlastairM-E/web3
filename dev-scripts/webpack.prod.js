@@ -22,7 +22,7 @@ module.exports = webpackMerge(common, {
 
   module: {
     rules: [
-      { test: /\.css$/, use: [MiniCSSExtractPlugin.loader, 'css-loader'] },
+      { test: /\.(css)$/, use: [MiniCSSExtractPlugin.loader, 'css-loader'] },
       {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /(node_modules|bower_components)/,

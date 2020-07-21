@@ -2,30 +2,75 @@
 /* IMPORTS */
 import React from 'react';
 
-// Components
-import { articles } from './mockArticles';
-import { ContextProvider } from './state-management/ContextProvider';
-import {
-  Navbar, Article, WebMonetization, Ad, ShareMonetizationTimer, DeleteCookieMessage,
-} from './components/index';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { Navbar, Intro } from './components/index';
+
+/* STYLES */
+const theme = {
+  backgroundColour: 'white',
+  detailColour: 'black',
+};
+
+const AppBackground = createGlobalStyle`
+  body {
+    background: ${(props) => props.theme.backgroundColour};
+    color: ${(props) => props.theme.detailColour};
+  }
+`;
+
+const StyledSkipContent = styled.a`
+  grid-column:0/0;
+  grid-row:0/0;
+
+  position:absolute;
+
+  opacity:0;
+
+  &:focus {
+    grid-column:1/5;
+    grid-row:1/1;
+    height:75px;
+
+    position:initial;
+
+    display:flex;
+    align-items:center;
+
+    padding-left:15px;
+    
+    background: ${(props) => props.theme.backgroundColour};
+    opacity:1;
+    
+    color: ${(props) => props.theme.detailColour}; 
+    font-size:1.5em;
+    text-decoration: underline;
+
+    z-index:10;
+  }
+`;
+
+const StyledScrollBody = styled.div`
+  grid-column: 1/13;
+  grid-row:2/13;
+
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+`;
 
 /* COMPONENT */
 function App() {
   /* HOOKS */
 
   /* RENDER */
-  // - Reducer the App background with a data-testid of "App".
-  // - Returns a Navbar with the title of Alastair M-E
+
   return (
-    <ContextProvider>
-      <WebMonetization />
+    <ThemeProvider theme={theme}>
+      <AppBackground />
+      <StyledSkipContent href="#main">Skip to Content</StyledSkipContent>
       <Navbar title="Alastair M-E" />
-      <Ad gridColumn={'1/3'} gridRow={'3/13'}>AD1</Ad>
-      <Article articles={articles} />
-      <Ad gridColumn={'11/13'} gridRow={'3/13'}>AD2</Ad>
-      <ShareMonetizationTimer />
-      <DeleteCookieMessage />
-    </ContextProvider>
+      <StyledScrollBody><Intro /></StyledScrollBody>
+    </ThemeProvider>
   );
 }
 
