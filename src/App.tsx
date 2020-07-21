@@ -1,9 +1,17 @@
-/* eslint-disable react/jsx-curly-brace-presence */
 /* IMPORTS */
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useViewportScroll } from 'framer-motion';
 
 /* COMPONENT */
 function App() {
+  const { scrollYProgress, scrollY } = useViewportScroll();
+  scrollYProgress.onChange(() => {
+    console.log('hello world');
+  });
+  scrollY.onChange(() => {
+    console.log('hello world');
+  });
   /* RENDER */
   return (
     <div>Hello world</div>
