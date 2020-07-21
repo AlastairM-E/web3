@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '../unused/components/Article/@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
 test('should App be loadable', () => {
