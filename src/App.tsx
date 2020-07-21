@@ -1,20 +1,22 @@
 /* IMPORTS */
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useViewportScroll } from 'framer-motion';
 
 /* COMPONENT */
 function App() {
-  const { scrollYProgress, scrollY } = useViewportScroll();
-  scrollYProgress.onChange(() => {
-    console.log('hello world');
-  });
+  const { scrollY } = useViewportScroll();
+  const [pageY, setPageY] = useState(scrollY.get());
   scrollY.onChange(() => {
-    console.log('hello world');
+    setPageY(scrollY.get());
   });
   /* RENDER */
   return (
-    <div>Hello world</div>
+    <h1 id="app">
+      Page Y :
+      {' '}
+      {pageY}
+    </h1>
   );
 }
 

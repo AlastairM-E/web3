@@ -8,3 +8,9 @@ body {
 #root {
   height: 4000px;
 }
+
+#app {
+  position:fixed;
+  top: 45%;
+  left: 45%;
+}
