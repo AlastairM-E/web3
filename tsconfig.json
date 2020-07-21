@@ -9,6 +9,10 @@
   },
   "include": [
     "src/**/*",
-    "unused/NightMode"
+    "unused/NightMode",
+    "unused/mockArticles.ts",
+    "unused/animation.ts",
+    "unused/state-management",
+    "unused/components"
   ],
 }

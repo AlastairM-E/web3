@@ -3,7 +3,7 @@
 import React from 'react';
 
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { Navbar, Intro } from './components/index';
+import { Navbar, Intro } from '../unused/components/index';
 
 /* STYLES */
 const theme = {

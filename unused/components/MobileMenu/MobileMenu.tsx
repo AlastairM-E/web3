@@ -4,12 +4,8 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import {
-<<<<<<< HEAD
-  slideSideMenu, toggleSandwichMenuAnimation, slideMenuButtonDividerIn, smbdaX,
-=======
   sandwichMenuDividerVarients,
   sideMenuVariants,
->>>>>>> w3v0.5
 } from '../../animation';
 
 /* ICONS */
