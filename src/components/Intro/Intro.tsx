@@ -1,8 +1,8 @@
 /* IMPORTS */
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, useCycle } from 'framer-motion';
 
 /* STYLES */
 const StyledTextContent = styled(motion.span)`
@@ -21,65 +21,37 @@ const StyledTextContent = styled(motion.span)`
   z-index:100;
 `;
 
-const initVariants = {
-  initial: {
-    fontSize: 5,
-  },
-  animate: {
-    fontSize: 20,
-    transition: {
-      when: 'beforeChildren',
-      delay: 0.5,
-      staggerChildren: 0.1,
-    },
-  },
-  scaleUp: {
-    scale: 1.5,
-    transition: {
-      type: 'tween',
-      when: 'afterChildren',
-      delay: 0.5,
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const advVariants = {
-  initial: {
-    fontSize: 5,
-  },
-  animate: {
-    fontSize: 20,
-    color: 'red',
-  },
+const textContentVariant = {
+  yellow: { background: 'yellow' },
+  lightgreen: { background: 'lightgreen' },
+  lightblue: { background: 'lightblue' },
+  coral: { background: 'coral' },
 };
 
 /* COMPONENT */
 function Intro() {
+  const differentAnimations = [
+    'yellow',
+    'lightgreen',
+    'lightblue',
+    'coral',
+  ];
+  const [animation, cycleAnimation] = useCycle(...differentAnimations);
   return (
-    <StyledTextContent
-      variants={initVariants}
-      initial="initial"
-      animate="animate"
-    >
-      Hello world
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-      <motion.span variants={advVariants}> Child element</motion.span>
-    </StyledTextContent>
+    <>
+      <button onClick={() => cycleAnimation()}> cycleAnimation</button>
+      <StyledTextContent
+        drag
+        dragConstraints={{
+          left: 50, top: 50, right: 50, bottom: 50,
+        }}
+        dragElastic={2}
+        variants={textContentVariant}
+        animate={animation}
+      >
+        Hello world
+      </StyledTextContent>
+    </>
   );
 }
 

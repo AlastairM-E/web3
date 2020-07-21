@@ -10,7 +10,11 @@ import {
 
 /* ICONS */
 const MobileMenuIcon = (
-  <svg height="48" viewBox="0 0 24 24" width="48">
+  <svg
+    height="48"
+    viewBox="0 0 24 24"
+    width="48"
+  >
     <title>
       Mobile Menu, press enter to toggle the menu open/close,
       press tab to access the content of the menu.

@@ -69,7 +69,7 @@ const PageLink = styled.a`
 function Navbar({ title }: NavbarProps) {
   const ListOfNavLinks = () => (
     <>
-      <PageLink href="/home">Home</PageLink>
+      <PageLink href="/">Home</PageLink>
       <PageLink href="/about">About</PageLink>
       <PageLink href="/contact">Contact</PageLink>
       <PageLink href="/portfolio">Portfolio</PageLink>
