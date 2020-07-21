@@ -4,10 +4,7 @@ import React from 'react';
 
 /* COMPONENT */
 function App() {
-  /* HOOKS */
-
   /* RENDER */
-
   return (
     <div>Hello world</div>
   );
