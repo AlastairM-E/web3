@@ -2,7 +2,7 @@
 import React from 'react';
 
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { Navbar, Intro } from './components/index';
+import { Navbar, Intro, About } from './components/index';
 
 /* STYLES */
 const theme = {
@@ -53,9 +53,7 @@ const StyledScrollBody = styled.div`
   grid-row:2/6;
 
   display:flex;
-
-  justify-content: center;
-  text-align:center;
+  justify-content:center;
 `;
 
 /* COMPONENT */
@@ -69,6 +67,7 @@ function App() {
       <Navbar title="Alastair M-E" />
       <StyledScrollBody>
         <Intro />
+        <About />
       </StyledScrollBody>
     </ThemeProvider>
   );

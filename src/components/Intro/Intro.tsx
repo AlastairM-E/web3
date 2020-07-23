@@ -6,10 +6,9 @@ import { motion, useViewportScroll } from 'framer-motion';
 
 /* STYLES */
 const StyledContainer = styled.span`
-  align-self:center;
-
+  
   display:flex;
-
+  align-self:center;
   justify-content:center;
   align-items:center;
 
@@ -21,7 +20,7 @@ const StyledContainer = styled.span`
 `;
 
 const StyledArrowDown = styled(motion.span)`
-  position: fixed;
+  position: absolute;
 `;
 
 /* VARIANTS */
