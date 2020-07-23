@@ -40,9 +40,13 @@ const StyledSideMenuDarkenBackground = styled.div`
   background: rgba(0,0,0,0.5);
   
   transition:2s;
+
+  z-index:1;
 `;
 
 const StyledSandwichMenu = styled.a`
+  position:fixed;
+
   display:inline-block;
 
   border: 2.5px solid ${(props) => backgroundColour(props)};
@@ -56,18 +60,6 @@ const StyledSandwichMenu = styled.a`
   }
 `;
 
-const StyledSideMenu = styled(motion.span)`
-  grid-row: 3/13;
-  grid-column: 9/13;
-
-  display:inline-block;
-
-  border-left: 5px solid ${(props) => detailColour(props)};
-
-  background: ${(props) => backgroundColour(props)};
-  
-  z-index: 1;
-`;
 const StyledSideMenuNav = styled.ul`
   * {
     display:inline-block;
@@ -77,8 +69,10 @@ const StyledSideMenuNav = styled.ul`
 `;
 
 const StyledSandwichMenuDivider = styled(motion.span)`
-  grid-column: 9/13;
-  grid-row: 1/3;
+  position:fixed;
+
+  height: 115px;
+  width: 33.33333333333%;
 
   display: flex;
   justify-content: flex-end;
@@ -94,6 +88,20 @@ const StyledSandwichMenuDivider = styled(motion.span)`
   svg {
     fill: ${(props) => detailColour(props)};
   }
+`;
+
+const StyledSideMenu = styled(motion.span)`
+  position:fixed;
+
+  height: 84.33333333333%;
+
+  display:flex;
+
+  border-left: 5px solid ${(props) => detailColour(props)};
+
+  background: ${(props) => backgroundColour(props)};
+  
+  z-index: 2;
 `;
 
 /* COMPONENT */

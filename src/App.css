@@ -3,6 +3,7 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
+  letter-spacing:2.5px;
 }
 
 #root {
@@ -10,5 +11,4 @@ body {
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 115px);
   width: 100%;
-  height: 100%;
 }

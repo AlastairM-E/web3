@@ -15,8 +15,10 @@ interface NavbarProps {
 
 /* STYLES */
 const StyledNavbar = styled.div`
-    grid-column:1/13;
-    grid-row:1/2;
+    position:fixed;
+
+    height:110px;
+    width:100%;
 
     display:flex;
     align-items:center;
@@ -31,12 +33,13 @@ const StyledNavbar = styled.div`
     svg {
       fill: ${(props) => detailColour(props)};
     }
+  
 `;
 
 const Title = styled.a`
 
   display:flex;
-  flex:0.52;
+  flex:0.555;
   justify-self:center;
   align-items:center;
 
@@ -49,7 +52,7 @@ const Title = styled.a`
   text-transform: uppercase;
   
   @media screen and (max-width: 600px) {
-    flex:0.57;
+    flex:0.655;
   }
 `;
 

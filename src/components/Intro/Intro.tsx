@@ -1,57 +1,103 @@
 /* IMPORTS */
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
-import { motion, useCycle } from 'framer-motion';
+import { motion, useViewportScroll } from 'framer-motion';
 
 /* STYLES */
-const StyledTextContent = styled(motion.span)`
+const StyledContainer = styled.span`
+  align-self:center;
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
   position:fixed;
-  width:100px;
-  height:100px;
 
-  padding:100px;
-  margin:25px;
-  border:2.5px solid black;
-
-  background:yellow;
-
-  color:black;
-
-  z-index:100;
+  * {
+    display: inline-block;
+  }
 `;
 
-const textContentVariant = {
-  yellow: { background: 'yellow' },
-  lightgreen: { background: 'lightgreen' },
-  lightblue: { background: 'lightblue' },
-  coral: { background: 'coral' },
+const StyledArrowDown = styled(motion.span)`
+  position: fixed;
+`;
+
+/* VARIANTS */
+const scrollArrowPromptVariants = {
+  initial: {
+    opacity: 1,
+    transition: {
+      ease: 'easeIn',
+      yoyo: 0,
+    },
+  },
+  animate: {
+    opacity: 0,
+    transition: {
+      duration: 1,
+      ease: 'easeIn',
+      yoyo: Infinity,
+    },
+  },
 };
 
 /* COMPONENT */
 function Intro() {
-  const differentAnimations = [
-    'yellow',
-    'lightgreen',
-    'lightblue',
-    'coral',
-  ];
-  const [animation, cycleAnimation] = useCycle(...differentAnimations);
+  /* HOOKS */
+  const [scrollAnimation, setScrollAnimation] = useState('animate');
+  const [opacity, setOpacity] = useState(1);
+  const { scrollY } = useViewportScroll();
+
+  /* EVENTS */
+  scrollY.onChange(() => {
+    if (scrollY.get() > 0 && scrollAnimation === 'animate') {
+      setScrollAnimation('initial');
+    }
+    if (scrollY.get() === 0 && scrollAnimation === 'initial') {
+      setScrollAnimation('animate');
+    }
+
+    if (scrollY.get() >= 20 && scrollY.get() < 40 && opacity !== 0.8) {
+      setOpacity(0.8);
+    }
+
+    if (scrollY.get() >= 40 && scrollY.get() < 60 && opacity !== 0.6) {
+      setOpacity(0.6);
+    }
+
+    if (scrollY.get() >= 60 && scrollY.get() < 80 && opacity !== 0.4) {
+      setOpacity(0.4);
+    }
+
+    if (scrollY.get() >= 80 && scrollY.get() < 100 && opacity !== 0.2) {
+      setOpacity(0.2);
+    }
+
+    if (scrollY.get() >= 100 && opacity !== 0) {
+      setOpacity(0);
+    }
+  });
+
+  console.log({ scrollAnimation });
+
   return (
-    <>
-      <button onClick={() => cycleAnimation()}> cycleAnimation</button>
-      <StyledTextContent
-        drag
-        dragConstraints={{
-          left: 50, top: 50, right: 50, bottom: 50,
-        }}
-        dragElastic={2}
-        variants={textContentVariant}
-        animate={animation}
-      >
-        Hello world
-      </StyledTextContent>
-    </>
+    <StyledContainer style={{ opacity }}>
+      <span>Please scroll down</span>
+      <StyledArrowDown initial={{ rotate: -45, y: 40 }}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="100px" height="48px">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <motion.path
+            d="M20 5.41L18.59 4 7 15.59V9H5v10h10v-2H8.41z"
+            variants={scrollArrowPromptVariants}
+            initial="initial"
+            animate={scrollAnimation}
+          />
+        </svg>
+      </StyledArrowDown>
+
+    </StyledContainer>
   );
 }
 

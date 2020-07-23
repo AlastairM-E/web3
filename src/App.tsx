@@ -50,11 +50,12 @@ const StyledSkipContent = styled.a`
 
 const StyledScrollBody = styled.div`
   grid-column: 1/13;
-  grid-row:2/13;
+  grid-row:2/6;
 
   display:flex;
-  align-items:flex-start;
-  justify-content:center;
+
+  justify-content: center;
+  text-align:center;
 `;
 
 /* COMPONENT */
@@ -66,7 +67,9 @@ function App() {
       <AppBackground />
       <StyledSkipContent href="#main">Skip to Content</StyledSkipContent>
       <Navbar title="Alastair M-E" />
-      <StyledScrollBody><Intro /></StyledScrollBody>
+      <StyledScrollBody>
+        <Intro />
+      </StyledScrollBody>
     </ThemeProvider>
   );
 }
