@@ -53,7 +53,7 @@ const StyledScrollBody = styled.div`
   grid-row:2/7;
 
   display:flex;
-  justify-content:center;
+  justify-content:space-around;
 `;
 
 /* COMPONENT */
@@ -70,6 +70,7 @@ function App() {
         <About />
       </StyledScrollBody>
     </ThemeProvider>
+
   );
 }
 

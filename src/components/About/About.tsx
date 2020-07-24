@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { motion, useViewportScroll } from 'framer-motion';
 
 import * as url from '../../assets/images/cardMainImage.jpg';
+import { Skills } from '../index';
 
 /* STYLES */
 const StyledAbout = styled(motion.span)`
@@ -85,21 +86,24 @@ function About() {
 
   /* RENDER */
   return (
-    <StyledAbout
-      variants={aboutVariants}
-      initial={hasFadedUp ? 'initial' : 'none'}
-      animate={hasFadedUp ? 'animate' : 'none'}
-    >
-      <span>About</span>
-      <StyledHr />
-      <StyledImage
-        src={url.default}
-        alt="The creator of the website sitting down, aka myself"
-      />
-      <StyledTextContent>
-        Hi, I am Alastair Mottram-Epson. I am a Front-End developer who specialises in React.
-      </StyledTextContent>
-    </StyledAbout>
+    <>
+      <StyledAbout
+        variants={aboutVariants}
+        initial={hasFadedUp ? 'initial' : 'none'}
+        animate={hasFadedUp ? 'animate' : 'none'}
+      >
+        <span>About</span>
+        <StyledHr />
+        <StyledImage
+          src={url.default}
+          alt="The creator of the website sitting down, aka myself"
+        />
+        <StyledTextContent>
+          Hi, I am Alastair Mottram-Epson. I am a Front-End developer who specialises in React.
+        </StyledTextContent>
+      </StyledAbout>
+      <Skills />
+    </>
   );
 }
 
