@@ -40,6 +40,14 @@ const scrollArrowPromptVariants = {
       yoyo: Infinity,
     },
   },
+  fadeDown: {
+    opacity: 0,
+    y: 100,
+    transition: {
+      duration: 1,
+      ease: 'easeIn',
+    },
+  },
 };
 
 /* COMPONENT */

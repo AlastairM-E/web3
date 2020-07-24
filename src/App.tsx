@@ -50,7 +50,7 @@ const StyledSkipContent = styled.a`
 
 const StyledScrollBody = styled.div`
   grid-column: 1/13;
-  grid-row:2/6;
+  grid-row:2/7;
 
   display:flex;
   justify-content:center;
