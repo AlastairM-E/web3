@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { motion, useViewportScroll } from 'framer-motion';
 
 /* STYLES */
-const StyledContainer = styled.span`
+const StyledContainer = styled(motion.span)`
   
   display:flex;
   align-self:center;
@@ -24,6 +24,29 @@ const StyledArrowDown = styled(motion.span)`
 `;
 
 /* VARIANTS */
+const containerVariants = {
+  initial: {
+    opacity: 1,
+    y: 0,
+  },
+  animate: {
+    opacity: 0,
+    y: 100,
+    transition: {
+      duration: 1,
+      type: 'tween',
+    },
+  },
+  none: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      type: 'tween',
+    },
+  },
+};
+
 const scrollArrowPromptVariants = {
   initial: {
     opacity: 1,
@@ -40,21 +63,14 @@ const scrollArrowPromptVariants = {
       yoyo: Infinity,
     },
   },
-  fadeDown: {
-    opacity: 0,
-    y: 100,
-    transition: {
-      duration: 1,
-      ease: 'easeIn',
-    },
-  },
+
 };
 
 /* COMPONENT */
 function Intro() {
   /* HOOKS */
   const [scrollAnimation, setScrollAnimation] = useState('animate');
-  const [opacity, setOpacity] = useState(1);
+  const [hasFadedDown, setHasFadedDown] = useState(false);
   const { scrollY } = useViewportScroll();
 
   /* EVENTS */
@@ -66,31 +82,23 @@ function Intro() {
       setScrollAnimation('animate');
     }
 
-    if (scrollY.get() >= 20 && scrollY.get() < 40 && opacity !== 0.8) {
-      setOpacity(0.8);
+    if (hasFadedDown !== true && scrollY.get() > 20) {
+      setHasFadedDown(true);
     }
 
-    if (scrollY.get() >= 40 && scrollY.get() < 60 && opacity !== 0.6) {
-      setOpacity(0.6);
-    }
-
-    if (scrollY.get() >= 60 && scrollY.get() < 80 && opacity !== 0.4) {
-      setOpacity(0.4);
-    }
-
-    if (scrollY.get() >= 80 && scrollY.get() < 100 && opacity !== 0.2) {
-      setOpacity(0.2);
-    }
-
-    if (scrollY.get() >= 100 && opacity !== 0) {
-      setOpacity(0);
+    if (hasFadedDown !== false && scrollY.get() <= 20) {
+      setHasFadedDown(false);
     }
   });
 
-  console.log({ scrollAnimation });
+  console.log({ hasFadedDown });
 
   return (
-    <StyledContainer style={{ opacity }}>
+    <StyledContainer
+      variants={containerVariants}
+      initial={hasFadedDown ? 'initial' : 'none'}
+      animate={hasFadedDown ? 'animate' : 'none'}
+    >
       <span>Please scroll down</span>
       <StyledArrowDown initial={{ rotate: -45, y: 40 }}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="100px" height="48px">

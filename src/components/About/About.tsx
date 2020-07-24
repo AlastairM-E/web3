@@ -1,8 +1,10 @@
 /* IMPORTS */
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import styled from 'styled-components';
-import { motion, useViewportScroll, useCycle } from 'framer-motion';
+import { motion, useViewportScroll } from 'framer-motion';
+
+import * as url from '../../assets/images/cardMainImage.jpg';
 
 /* STYLES */
 const StyledAbout = styled(motion.span)`
@@ -10,13 +12,33 @@ const StyledAbout = styled(motion.span)`
 
     left: 5%;
 
-    height: 400px;
-    width: 25%;
+    height: 500px;
+    width: 400px;
     padding: 25px;
-    margin-top: 161.75px;
+    margin-top: 111.75px;
     border: 2.5px solid black;
-    display: flex;
+
+    display: inline-block;
     align-self:end;
+`;
+
+const StyledHr = styled.hr`
+  border: none;
+  border-bottom: 2.5px solid black;
+`;
+
+const StyledImage = styled.img`
+  height: 292px;
+  width: 400px;
+  justify-self: center;
+`;
+
+const StyledTextContent = styled.div`
+  height: 198px;
+  margin-top: 2.5px;
+
+  display:flex;
+  align-items:center;
 `;
 
 /* VARIANTS */
@@ -26,16 +48,22 @@ const aboutVariants = {
     y: 0,
   },
   animate: {
-    opacity: [0, 0, 0, 1, 1],
+    opacity: 1,
     y: -100,
     transition: {
-      duration: 1.5,
+      duration: 1,
       type: 'tween',
     },
   },
   none: {
     opacity: 0,
+    y: 0,
+    transition: {
+      duration: 1,
+      type: 'tween',
+    },
   },
+
 };
 
 /* COMPONENT */
@@ -46,11 +74,11 @@ function About() {
 
   /* EVENTS */
   scrollY.onChange(() => {
-    if (hasFadedUp !== true && scrollY.get() >= 120) {
+    if (hasFadedUp !== true && scrollY.get() >= 45) {
       setHasFadedUp(true);
     }
 
-    if (hasFadedUp !== false && scrollY.get() < 120) {
+    if (hasFadedUp !== false && scrollY.get() < 45) {
       setHasFadedUp(false);
     }
   });
@@ -62,7 +90,15 @@ function About() {
       initial={hasFadedUp ? 'initial' : 'none'}
       animate={hasFadedUp ? 'animate' : 'none'}
     >
-      About
+      <span>About</span>
+      <StyledHr />
+      <StyledImage
+        src={url.default}
+        alt="The creator of the website sitting down, aka myself"
+      />
+      <StyledTextContent>
+        Hi, I am Alastair Mottram-Epson. I am a Front-End developer who specialises in React.
+      </StyledTextContent>
     </StyledAbout>
   );
 }
